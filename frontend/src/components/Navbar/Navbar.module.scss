@@ -1,0 +1,132 @@
+@use "../../globalStyles/colors";
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  color: colors.$gray-800;
+  width: 100vw;
+
+  // Dark mode styles
+  @media (prefers-color-scheme: dark) {
+    background-color: colors.$gray-800;
+    color: white;
+  }
+
+  .searchBarContainer {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .menuButton {
+      height: 2rem;
+      width: 2rem;
+      background-color: white;
+      border: none;
+      cursor: pointer;
+
+      // Dark mode styles
+      @media (prefers-color-scheme: dark) {
+        color: white;
+        background-color: colors.$gray-800;
+      }
+    }
+
+    .searchContainer {
+      position: relative;
+      display: flex;
+      height: min-content;
+      width: 200px;
+
+      .searchIcon {
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        margin-right: 0.5rem;
+        height: 1.25rem;
+        width: 1.25rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+
+        // Dark mode styles
+        @media (prefers-color-scheme: dark) {
+          color: white;
+        }
+      }
+
+      .searchInput {
+        width: 100%;
+        border-radius: 0.375rem;
+        border: none;
+        background-color: #f3f4f6;
+        padding: 0.5rem;
+        padding-left: 2rem;
+        color: #6b7280;
+
+        &::placeholder {
+          color: #6b7280;
+        }
+
+        &:focus {
+          border-color: transparent;
+          outline: none;
+        }
+
+        // Dark mode styles
+        @media (prefers-color-scheme: dark) {
+          background-color: colors.$dark-bg;
+          color: white;
+
+          &::placeholder {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .iconContainer {
+    display: flex;
+    align-items: center;
+    .settingsLink {
+      min-height: min-content;
+      min-width: min-content;
+      border-radius: 0.25rem;
+      &:hover {
+        background-color: colors.$gray-200;
+      }
+    }
+    .settings {
+      height: 1.5rem;
+      width: 1.5rem;
+      cursor: pointer;
+      color: colors.$gray-800;
+      // Dark mode styles
+      @media (prefers-color-scheme: dark) {
+        color: white;
+        &:hover {
+          color: colors.$gray-800;
+        }
+      }
+    }
+    .divider {
+      margin-left: 0.5rem;
+      margin-right: 1.25rem;
+      display: none;
+      min-height: 2em;
+      width: 0.1rem;
+      background-color: black;
+      // Dark mode styles
+      @media (prefers-color-scheme: dark) {
+        background-color: white;
+      }
+
+      // Media query for md breakpoint
+      @media (min-width: 768px) {
+        display: inline-block;
+        //background-color: colors.$dark-bg;
+      }
+    }
+  }
+}
