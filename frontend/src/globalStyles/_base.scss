@@ -86,16 +86,20 @@ body,
       .sidebarLinkColor {
         color: colors.$gray-800;
         &:hover {
-          background-color: colors.$gray-700;
-          color: colors.$gray-100;
+          background-color: colors.$blue-300;
+          color: black;
+        }
+        &.active {
+          background-color: colors.$blue-400;
+          color: black;
         }
       }
       .toggleButtonColor {
         color: colors.$gray-800;
         background-color: white;
         &:hover {
-          background-color: colors.$gray-800;
-          color: white;
+          background-color: colors.$blue-300;
+          color: black;
         }
       }
     }
@@ -174,16 +178,20 @@ body,
       .sidebarLinkColor {
         color: colors.$gray-100;
         &:hover {
+          color: colors.$gray-100;
+          background-color: colors.$gray-500;
+        }
+        &.active {
           color: colors.$gray-800;
-          background-color: colors.$gray-100;
+          background-color: colors.$gray-200;
         }
       }
       .toggleButtonColor {
         background-color: colors.$gray-800;
         color: colors.$gray-100;
         &:hover {
-          color: colors.$gray-800;
-          background-color: white;
+          color: colors.$gray-100;
+          background-color: colors.$gray-500;
         }
       }
     }

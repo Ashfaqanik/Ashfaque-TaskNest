@@ -16,7 +16,7 @@ import {
   AlertTriangle,
   Briefcase,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/redux";
 import { setIsSidebarCollapsed } from "../../state/globalReducer";
 
@@ -135,12 +135,24 @@ interface SidebarLinkProps {
 }
 
 const SidebarLink: React.FC<SidebarLinkProps> = ({
+  href,
   icon: Icon,
   label,
-  href,
-}) => (
-  <Link to={href} className={`${styles.sidebarLink} sidebarLinkColor`}>
-    <Icon className={styles.icon} />
-    <span>{label}</span>
-  </Link>
-);
+}) => {
+  const location = useLocation();
+  const isActive =
+    location.pathname === href ||
+    (location.pathname === "/" && href === "/dashboard");
+
+  return (
+    <Link
+      to={href}
+      className={`${styles.sidebarLink} sidebarLinkColor ${
+        isActive ? "active" : ""
+      }`}
+    >
+      <Icon className={styles.icon} />
+      <span>{label}</span>
+    </Link>
+  );
+};

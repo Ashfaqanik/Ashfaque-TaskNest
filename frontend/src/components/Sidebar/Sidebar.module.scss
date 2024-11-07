@@ -36,14 +36,8 @@
       justify-content: space-between;
       height: 12%;
       width: 16rem;
-      //background-color: colors.$blue-200;
       padding: 0.75rem 1.5rem;
       z-index: 50;
-
-      //   // Dark mode
-      //   @media (prefers-color-scheme: dark) {
-      //     background-color: black;
-      //   }
 
       .image {
         // content: url("/TaskNest.png");
@@ -52,39 +46,18 @@
         max-width: 200px;
         object-fit: cover;
         transform: translateX(-30px);
-
-        // Dark mode
-        // @media (prefers-color-scheme: dark) {
-        //   content: url("/TaskNest_Dark.png");
-        // }
       }
 
       // Close button styling
       .closeButton {
         padding: 0.75rem 0;
-        //background-color: colors.$blue-200;
         border: none;
 
         .icon {
           height: 1.5rem;
           width: 1.5rem;
-          //color: colors.$dark-bg;
           cursor: pointer;
-
-          //   &:hover {
-          //     color: #6b7280;
-          //   }
-
-          // Dark mode
-          //   @media (prefers-color-scheme: dark) {
-          //     color: white;
-          //   }
         }
-
-        // Dark mode
-        // @media (prefers-color-scheme: dark) {
-        //   background-color: black;
-        // }
       }
     }
     // Divider
@@ -103,7 +76,7 @@
       justify-content: space-between;
       padding: 0.75rem 2rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      //transition: background-color 0.3s ease;
     }
     .nav {
       width: 100%;
@@ -114,7 +87,7 @@
       align-items: center;
       padding: 0.75rem 1rem;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      //transition: background-color 0.3s ease;
 
       .icon {
         margin-right: 0.5rem;
