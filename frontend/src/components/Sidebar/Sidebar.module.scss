@@ -10,14 +10,6 @@
   transition: all 0.3s ease;
   z-index: 40;
   overflow-y: auto;
-  background-color: white;
-  color: colors.$gray-800;
-
-  // Dark mode background
-  @media (prefers-color-scheme: dark) {
-    background-color: colors.$gray-800;
-    color: white;
-  }
 
   // Collapsed state
   &.collapsed {
@@ -37,11 +29,6 @@
     height: 100%;
     width: 100%;
 
-    // Dark mode
-    @media (prefers-color-scheme: dark) {
-      background-color: colors.$gray-800;
-    }
-
     // Top logo section
     .topLogoSection {
       display: flex;
@@ -49,17 +36,17 @@
       justify-content: space-between;
       height: 12%;
       width: 16rem;
-      background-color: colors.$blue-200;
+      //background-color: colors.$blue-200;
       padding: 0.75rem 1.5rem;
       z-index: 50;
 
-      // Dark mode
-      @media (prefers-color-scheme: dark) {
-        background-color: black;
-      }
+      //   // Dark mode
+      //   @media (prefers-color-scheme: dark) {
+      //     background-color: black;
+      //   }
 
       .image {
-        content: url("/TaskNest.png");
+        // content: url("/TaskNest.png");
         width: 90%;
         max-height: 70px;
         max-width: 200px;
@@ -67,49 +54,44 @@
         transform: translateX(-30px);
 
         // Dark mode
-        @media (prefers-color-scheme: dark) {
-          content: url("/TaskNest_Dark.png");
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   content: url("/TaskNest_Dark.png");
+        // }
       }
 
       // Close button styling
       .closeButton {
         padding: 0.75rem 0;
-        background-color: colors.$blue-200;
+        //background-color: colors.$blue-200;
         border: none;
 
         .icon {
           height: 1.5rem;
           width: 1.5rem;
-          color: colors.$dark-bg;
+          //color: colors.$dark-bg;
           cursor: pointer;
 
-          &:hover {
-            color: #6b7280;
-          }
+          //   &:hover {
+          //     color: #6b7280;
+          //   }
 
           // Dark mode
-          @media (prefers-color-scheme: dark) {
-            color: white;
-          }
+          //   @media (prefers-color-scheme: dark) {
+          //     color: white;
+          //   }
         }
 
         // Dark mode
-        @media (prefers-color-scheme: dark) {
-          background-color: black;
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   background-color: black;
+        // }
       }
     }
     // Divider
     .divider {
       border: none;
       height: 1px;
-      background-color: colors.$gray-300;
       margin: 0;
-      // Dark mode
-      @media (prefers-color-scheme: dark) {
-        background-color: colors.$gray-700;
-      }
     }
 
     // Toggle button for projects
@@ -120,21 +102,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.75rem 2rem;
-      color: #4b5563;
       cursor: pointer;
-      background-color: white;
       transition: background-color 0.3s ease;
-      // Dark mode
-      @media (prefers-color-scheme: dark) {
-        background-color: colors.$gray-800;
-        color: colors.$gray-100;
-        &:hover {
-          color: #4b5563; // Light gray background on hover
-        }
-      }
-      &:hover {
-        background-color: #f3f4f6;
-      }
     }
     .nav {
       width: 100%;
@@ -145,19 +114,7 @@
       align-items: center;
       padding: 0.75rem 1rem;
       text-decoration: none;
-      color: #4b5563;
       transition: background-color 0.3s ease;
-      // Dark mode
-      @media (prefers-color-scheme: dark) {
-        color: colors.$gray-100;
-        &:hover {
-          color: #4b5563; // Light gray background on hover
-        }
-      }
-
-      &:hover {
-        background-color: #f3f4f6;
-      }
 
       .icon {
         margin-right: 0.5rem;

@@ -17,6 +17,8 @@ import {
   Briefcase,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/redux";
+import { setIsSidebarCollapsed } from "../../state/globalReducer";
 
 interface Project {
   id: string;
@@ -30,9 +32,12 @@ const projects: Project[] = [
 ];
 
 export default function Sidebar() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
-  const [showPriority, setShowPriority] = useState(true);
+  const [showPriority, setShowPriority] = useState(false);
+  const dispatch = useAppDispatch();
+  const isSidebarCollapsed = useAppSelector(
+    (state) => state.global.isSidebarCollapsed
+  );
 
   return (
     <div
@@ -40,20 +45,22 @@ export default function Sidebar() {
         isSidebarCollapsed ? styles.collapsed : styles.expanded
       }`}
     >
-      <div className={styles.container}>
-        <div className={styles.topLogoSection}>
-          <img className={styles.image} alt="TaskNest" />
+      <div className={`${styles.container} containerColor`}>
+        <div className={`${styles.topLogoSection} topLogoSectionColor`}>
+          <img className={`${styles.image} imageUrl`} alt="TaskNest" />
           {isSidebarCollapsed ? null : (
             <button
-              className={styles.closeButton}
-              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              className={`${styles.closeButton} closeButtonColor`}
+              onClick={() =>
+                dispatch(setIsSidebarCollapsed(!isSidebarCollapsed))
+              }
             >
-              <X className={styles.icon} />
+              <X className={`${styles.icon} iconColor`} />
             </button>
           )}
         </div>
         {/* Divider */}
-        <hr className={styles.divider} />
+        <hr className={`${styles.divider} dividerColor`} />
         {/* NAVBAR LINKS */}
         <nav className={styles.nav}>
           <SidebarLink icon={Home} label="Home" href="/" />
@@ -67,7 +74,7 @@ export default function Sidebar() {
         {/* PROJECTS LINKS */}
         <button
           onClick={() => setShowProjects((prev) => !prev)}
-          className={styles.toggleButton}
+          className={`${styles.toggleButton} toggleButtonColor`}
         >
           <span>Projects</span>
           {showProjects ? <ChevronUp /> : <ChevronDown />}
@@ -85,7 +92,7 @@ export default function Sidebar() {
         {/* PRIORITY LINKS */}
         <button
           onClick={() => setShowPriority((prev) => !prev)}
-          className={styles.toggleButton}
+          className={`${styles.toggleButton} toggleButtonColor`}
         >
           <span>Priority</span>
           {showPriority ? <ChevronUp /> : <ChevronDown />}
@@ -132,7 +139,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
   label,
   href,
 }) => (
-  <Link to={href} className={styles.sidebarLink}>
+  <Link to={href} className={`${styles.sidebarLink} sidebarLinkColor`}>
     <Icon className={styles.icon} />
     <span>{label}</span>
   </Link>

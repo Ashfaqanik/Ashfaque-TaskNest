@@ -12,59 +12,180 @@ body,
 #root,
 .app {
   margin: 0;
+  overflow: hidden;
   font-family: "Inter", sans-serif;
   height: 100%;
   width: 100%;
   font-size: 0.875rem;
-  background-color: white;
+}
+.light {
+  .text {
+    color: colors.$gray-800;
+  }
+  .background {
+    background-color: colors.$blue-200; // Default light mode background
+  }
+  .nav {
+    background-color: white;
+    .menu {
+      background-color: white;
+      &:hover {
+        background-color: colors.$gray-200;
+      }
+    }
+    .searchBox {
+      background-color: colors.$blue-200;
+      color: colors.$gray-800;
 
-  // Dark mode styles
-  @media (prefers-color-scheme: dark) {
-    background-color: colors.$dark-bg;
+      &::placeholder {
+        color: colors.$gray-500;
+      }
+    }
+    .settingsLink {
+      color: colors.$gray-800;
+      background-color: white;
+      &:hover {
+        background-color: colors.$gray-200;
+      }
+    }
+    .dividerColor {
+      background-color: colors.$gray-800;
+    }
+    .toggleColor {
+      background-color: white;
+      &:hover {
+        background-color: colors.$gray-200;
+      }
+      color: colors.$gray-800;
+    }
+  }
+  .sidebarColor {
+    background-color: white;
+    color: colors.$gray-800;
+    .containerColor {
+      color: colors.$gray-800;
+      background-color: white;
+      .topLogoSectionColor {
+        background-color: colors.$blue-200;
+        .imageUrl {
+          content: url("/TaskNest.png");
+        }
+        .closeButtonColor {
+          background-color: colors.$blue-200;
+          .iconColor {
+            color: colors.$dark-bg;
+            &:hover {
+              color: #6b7280;
+            }
+          }
+        }
+      }
+      .dividerColor {
+        background-color: colors.$gray-200;
+      }
+      .sidebarLinkColor {
+        color: colors.$gray-800;
+        &:hover {
+          background-color: colors.$gray-700;
+          color: colors.$gray-100;
+        }
+      }
+      .toggleButtonColor {
+        color: colors.$gray-800;
+        background-color: white;
+        &:hover {
+          background-color: colors.$gray-800;
+          color: white;
+        }
+      }
+    }
   }
 }
 
-// /* TIMELINE STYLING */
-// .timeline ._3_ygE {
-//   @apply rounded-tl-md border border-r-0 border-[#e6e4e4] dark:border-stroke-dark;
-// }
-// .timeline ._2eZzQ {
-//   @apply border-[#e6e4e4] dark:border-stroke-dark;
-// }
-// .timeline ._2dZTy {
-//   @apply fill-white dark:fill-dark-secondary;
-// }
-// .timeline ._2dZTy:nth-child(even) {
-//   @apply fill-[#f5f5f5] dark:fill-dark-tertiary;
-// }
-// .timeline ._35nLX {
-//   @apply fill-white stroke-[#e6e4e4] dark:fill-dark-secondary dark:stroke-stroke-dark;
-// }
-// .timeline ._9w8d5 {
-//   @apply fill-[#333] dark:fill-white;
-// }
-// .timeline ._34SS0 {
-//   @apply bg-white dark:bg-dark-secondary;
-// }
-// .timeline ._34SS0:nth-of-type(even) {
-//   @apply bg-[#f5f5f5] dark:bg-dark-tertiary;
-// }
-// .timeline ._RuwuK,
-// .timeline ._3rUKi,
-// .timeline ._1rLuZ {
-//   @apply stroke-[#e6e4e4] dark:stroke-stroke-dark;
-// }
-// .timeline ._3ZbQT {
-//   @apply border-l-0 border-[#e6e4e4] dark:border-stroke-dark;
-// }
-// .timeline ._3T42e {
-//   @apply bg-white dark:bg-dark-bg;
-// }
-// .timeline ._29NTg {
-//   @apply dark:text-neutral-500;
-// }
+.dark {
+  .text {
+    color: white;
+  }
+  .background {
+    background-color: colors.$dark-bg;
+  }
+  .nav {
+    background-color: colors.$gray-800;
+    .menu {
+      background-color: colors.$gray-800;
+      color: white;
+      &:hover {
+        background-color: colors.$gray-200;
+        color: colors.$gray-800;
+      }
+    }
+    .searchBox {
+      background-color: colors.$dark-bg;
+      color: white;
 
-// ::-webkit-scrollbar {
-//   width: 0px;
-//   height: 0px;
-// }
+      &::placeholder {
+        color: colors.$gray-100;
+      }
+    }
+    .settingsLink {
+      color: white;
+      background-color: colors.$gray-800;
+      &:hover {
+        background-color: colors.$gray-200;
+        color: colors.$gray-800;
+      }
+    }
+    .dividerColor {
+      background-color: colors.$gray-500;
+    }
+    .toggleColor {
+      color: white;
+      background-color: colors.$gray-800;
+      &:hover {
+        color: colors.$gray-800;
+        background-color: colors.$gray-200;
+      }
+    }
+  }
+  .sidebarColor {
+    background-color: colors.$gray-800;
+    color: white;
+    .containerColor {
+      color: white;
+      background-color: colors.$gray-800;
+      .topLogoSectionColor {
+        background-color: black;
+        .imageUrl {
+          content: url("/TaskNest_Dark.png");
+        }
+        .closeButtonColor {
+          background-color: black;
+          .iconColor {
+            color: white;
+            &:hover {
+              color: colors.$gray-200;
+            }
+          }
+        }
+      }
+      .dividerColor {
+        background-color: colors.$gray-700;
+      }
+      .sidebarLinkColor {
+        color: colors.$gray-100;
+        &:hover {
+          color: colors.$gray-800;
+          background-color: colors.$gray-100;
+        }
+      }
+      .toggleButtonColor {
+        background-color: colors.$gray-800;
+        color: colors.$gray-100;
+        &:hover {
+          color: colors.$gray-800;
+          background-color: white;
+        }
+      }
+    }
+  }
+}

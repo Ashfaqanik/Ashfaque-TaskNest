@@ -1,5 +1,4 @@
 import React from "react";
-import "./globalStyles/index.scss";
 import DashboardWrapper from "./sections/DashboardWrapper/DashboardWrapper";
 
 const metadata = {
@@ -23,6 +22,7 @@ function App({
       document.head.appendChild(newMetaDescription);
     }
   }, []);
+
   return (
     <div>
       <DashboardWrapper>{children}</DashboardWrapper>
