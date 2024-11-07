@@ -17,8 +17,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/redux";
-import { setIsSidebarCollapsed } from "../../state/globalReducer";
+import { useSidebar } from "../../context/SidebarContext";
 
 interface Project {
   id: string;
@@ -34,10 +33,7 @@ const projects: Project[] = [
 export default function Sidebar() {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
-  const dispatch = useAppDispatch();
-  const isSidebarCollapsed = useAppSelector(
-    (state) => state.global.isSidebarCollapsed
-  );
+  const { isSidebarCollapsed, toggleSidebar } = useSidebar();
 
   return (
     <div
@@ -51,9 +47,7 @@ export default function Sidebar() {
           {isSidebarCollapsed ? null : (
             <button
               className={`${styles.closeButton} closeButtonColor`}
-              onClick={() =>
-                dispatch(setIsSidebarCollapsed(!isSidebarCollapsed))
-              }
+              onClick={toggleSidebar}
             >
               <X className={`${styles.icon} iconColor`} />
             </button>
