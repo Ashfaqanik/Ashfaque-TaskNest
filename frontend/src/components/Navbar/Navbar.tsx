@@ -1,8 +1,9 @@
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
-import { Search, Settings, Menu, Sun, Moon } from "lucide-react";
+import { Search, Settings, Menu } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useSidebar } from "../../context/SidebarContext";
+import Toggle from "../../switch/Toggle.jsx";
 
 export default function Navbar() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -31,14 +32,15 @@ export default function Navbar() {
       </div>
       {/* Icons */}
       <div className={styles.iconContainer}>
-        <button
-          onClick={toggleTheme}
-          className={`${styles.toggleButton} ${
-            isDarkMode ? styles.dark : styles.light
-          } toggleColor`}
-        >
-          {isDarkMode ? <Sun /> : <Moon />}
-        </button>
+        <Toggle
+          toggleMode={toggleTheme}
+          isNightMode={isDarkMode}
+          //   className={`${styles.toggleButton} ${
+          //     isDarkMode ? styles.dark : styles.light
+          //   } toggleColor`}
+        />
+        {/* {isDarkMode ? <Sun /> : <Moon />}
+        </Toggle> */}
         <Link to="/settings" className={`${styles.settings} settingsLink`}>
           <Settings />
         </Link>

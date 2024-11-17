@@ -1,0 +1,62 @@
+.toggle {
+  height: 25px;
+  width: 50px;
+  top: 3px;
+  right: 2px;
+  border-radius: 15px;
+  margin: 0;
+  background-image: linear-gradient(rgb(94, 157, 240), rgb(161, 193, 207));
+  position: relative;
+  cursor: pointer;
+
+  &.night {
+    background-image: linear-gradient(rgb(85, 85, 118), rgb(111, 57, 165));
+  }
+
+  .notch {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgb(235, 235, 141);
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    box-shadow: 0 0 3px yellow;
+    z-index: 1;
+    transition: all 0.3s ease;
+
+    & > .child {
+      background: burlywood;
+      border-radius: 50%;
+      position: absolute;
+      opacity: 0;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4) inset;
+
+      &:first-child {
+        left: 2px;
+        top: 5px;
+        height: 5px;
+        width: 10px;
+        transform: rotate(-45deg);
+      }
+
+      &:last-child {
+        right: 2px;
+        top: 5px;
+        height: 5px;
+        width: 8px;
+        transform: rotate(45deg);
+      }
+    }
+
+    &.night {
+      background: whitesmoke;
+      box-shadow: 0 0 3px whitesmoke;
+      transform: translate(30px, 0);
+
+      .child {
+        opacity: 0.4;
+      }
+    }
+  }
+}
