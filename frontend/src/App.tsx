@@ -2,6 +2,7 @@ import React from "react";
 import DashboardWrapper from "./sections/DashboardWrapper/DashboardWrapper";
 import { SidebarProvider } from "./context/SidebarContext.tsx";
 import { useAppSelector } from "./store/redux.tsx";
+import { ToastContainer } from "react-toastify";
 
 const metadata = {
   title: "Ashfaque TaskNest",
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <div>
+      <ToastContainer position="top-right" autoClose={3000} />
       <SidebarProvider>
         <DashboardWrapper />
       </SidebarProvider>

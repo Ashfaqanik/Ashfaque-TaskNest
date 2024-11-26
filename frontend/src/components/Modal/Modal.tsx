@@ -15,12 +15,15 @@ const Modal: React.FC<Props> = ({ children, isOpen, onClose, name }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className={styles.modalOverlay}>
-      <div className={`${styles.modalContent} dark`}>
+    <div className={`${styles.modalOverlay} modalOverlayColor`}>
+      <div className={`${styles.modalContent} modalContentColor`}>
         <Header
           name={name}
           buttonComponent={
-            <button className={styles.closeButton} onClick={onClose}>
+            <button
+              className={`${styles.closeButton} closeButtonColor`}
+              onClick={onClose}
+            >
               <X size={18} />
             </button>
           }

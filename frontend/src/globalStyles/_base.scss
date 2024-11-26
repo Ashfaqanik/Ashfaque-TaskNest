@@ -208,6 +208,43 @@ body.dark,
       }
     }
   }
+  .modalContainerFormInputColor {
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    background-color: white;
+    color: colors.$gray-800;
+    border-color: #2d3748;
+  }
+  .modalContainerFormSelectInputColor {
+    border: 1px solid colors.$gray-800;
+    background-color: white;
+    color: colors.$gray-800;
+  }
+  .modalContainerFormButtonColor {
+    background-color: #3b82f6;
+    color: white;
+    &:hover {
+      background-color: #2563eb;
+    }
+  }
+  .modalOverlayColor {
+    background-color: rgba(75, 85, 99, 0.5);
+  }
+  .modalContentColor {
+    background-color: colors.$blue-100;
+  }
+  .closeButtonColor {
+    background-color: colors.$blue-primary;
+    color: white;
+    border-color: colors.$blue-primary;
+    &:hover {
+      background-color: #2563eb; // Blue hover
+    }
+  }
 }
 
 .dark {
@@ -387,6 +424,46 @@ body.dark,
     }
     .searchIcon {
       color: colors.$gray-100;
+    }
+  }
+  .modalContainerFormInputColor {
+    border: 1px solid colors.$dark-tertiary;
+    //box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: colors.$gray-600;
+    color: colors.$gray-100;
+    &:focus {
+      outline: none;
+      border-color: colors.$dark-secondary;
+    }
+  }
+  .modalContainerFormSelectInputColor {
+    border: 1px solid colors.$dark-tertiary;
+    background-color: colors.$gray-600;
+    color: colors.$gray-100;
+    &:focus {
+      outline: none;
+      border-color: colors.$dark-secondary;
+    }
+  }
+  .modalContainerFormButtonColor {
+    background-color: colors.$dark-secondary;
+    color: white;
+    &:hover {
+      background-color: colors.$blue-primary;
+    }
+  }
+  .modalOverlayColor {
+    background-color: rgba(127, 129, 132, 0.5);
+  }
+  .modalContentColor {
+    background-color: #2d3748;
+  }
+  .closeButtonColor {
+    background-color: colors.$dark-secondary;
+    color: #ffffff;
+    border-color: colors.$dark-secondary;
+    &:hover {
+      background-color: colors.$blue-primary;
     }
   }
 }

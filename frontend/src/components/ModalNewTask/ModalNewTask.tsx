@@ -3,6 +3,8 @@ import Modal from "../../components/Modal/Modal"; // Adjust the path to your Mod
 import { Priority, Status, useCreateTaskMutation } from "../../state/api";
 import { formatISO } from "date-fns";
 import styles from "./ModalNewTask.module.scss";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {
   isOpen: boolean;
@@ -26,29 +28,53 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
   const handleSubmit = async () => {
     if (!title || !authorUserId || !(id !== null || projectId)) return;
 
-    const formattedStartDate = formatISO(new Date(startDate), {
-      representation: "complete",
-    });
-    const formattedDueDate = formatISO(new Date(dueDate), {
-      representation: "complete",
-    });
+    try {
+      const formattedStartDate = formatISO(new Date(startDate), {
+        representation: "complete",
+      });
+      const formattedDueDate = formatISO(new Date(dueDate), {
+        representation: "complete",
+      });
 
-    await createTask({
-      title,
-      description,
-      status,
-      priority,
-      tags,
-      startDate: formattedStartDate,
-      dueDate: formattedDueDate,
-      authorUserId: parseInt(authorUserId),
-      assignedUserId: parseInt(assignedUserId),
-      projectId: id !== null ? Number(id) : Number(projectId),
-    });
+      await createTask({
+        title,
+        description,
+        status,
+        priority,
+        tags,
+        startDate: formattedStartDate,
+        dueDate: formattedDueDate,
+        authorUserId: parseInt(authorUserId),
+        assignedUserId: parseInt(assignedUserId),
+        projectId: id !== null ? Number(id) : Number(projectId),
+      }).unwrap();
+
+      toast.success("Task created successfully!");
+
+      // Closing the modal
+      onClose();
+
+      resetForm();
+    } catch (error) {
+      toast.error("Failed to create task. Please try again.");
+    }
+  };
+
+  const resetForm = () => {
+    setTitle("");
+    setDescription("");
+    setStatus(Status.ToDo);
+    setPriority(Priority.Backlog);
+    setTags("");
+    setStartDate("");
+    setDueDate("");
+    setAuthorUserId("");
+    setAssignedUserId("");
+    setProjectId("");
   };
 
   const isFormValid = () => {
-    return title && authorUserId && !(id !== null || projectId);
+    return title && authorUserId && (id !== null || projectId);
   };
 
   return (
@@ -62,24 +88,26 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
         >
           <input
             type="text"
-            className={styles.formInput}
+            className={`${styles.formInput} modalContainerFormInputColor`}
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            className={styles.formInput}
+            className={`${styles.formInput} modalContainerFormInputColor`}
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <div className={styles.gridContainer}>
             <select
-              className={styles.selectInput}
+              className={`${styles.selectInput} modalContainerFormSelectInputColor`}
               value={status}
-              onChange={(e) =>
-                setStatus(Status[e.target.value as keyof typeof Status])
-              }
+              onChange={(e) => setStatus(e.target.value as Status)}
+
+              //   onChange={(e) =>
+              //     setStatus(Status[e.target.value as keyof typeof Status])
+              //   }
             >
               <option value="">Select Status</option>
               {Object.values(Status).map((statusOption) => (
@@ -89,7 +117,7 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
               ))}
             </select>
             <select
-              className={styles.selectInput}
+              className={`${styles.selectInput} modalContainerFormSelectInputColor`}
               value={priority}
               onChange={(e) =>
                 setPriority(Priority[e.target.value as keyof typeof Priority])
@@ -105,7 +133,7 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
           </div>
           <input
             type="text"
-            className={styles.formInput}
+            className={`${styles.formInput} modalContainerFormInputColor`}
             placeholder="Tags (comma separated)"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
@@ -113,27 +141,27 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
           <div className={styles.gridContainer}>
             <input
               type="date"
-              className={styles.formInput}
+              className={`${styles.formInput} modalContainerFormInputColor`}
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
             <input
               type="date"
-              className={styles.formInput}
+              className={`${styles.formInput} modalContainerFormInputColor`}
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
             />
           </div>
           <input
             type="text"
-            className={styles.formInput}
+            className={`${styles.formInput} modalContainerFormInputColor`}
             placeholder="Author User ID"
             value={authorUserId}
             onChange={(e) => setAuthorUserId(e.target.value)}
           />
           <input
             type="text"
-            className={styles.formInput}
+            className={`${styles.formInput} modalContainerFormInputColor`}
             placeholder="Assigned User ID"
             value={assignedUserId}
             onChange={(e) => setAssignedUserId(e.target.value)}
@@ -141,7 +169,7 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
           {id === null && (
             <input
               type="text"
-              className={styles.formInput}
+              className={`${styles.formInput} modalContainerFormInputColor`}
               placeholder="Project ID"
               value={projectId}
               onChange={(e) => setProjectId(e.target.value)}
@@ -149,7 +177,7 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
           )}
           <button
             type="submit"
-            className={`${styles.formButton} ${
+            className={`${`${styles.formButton} modalContainerFormButtonColor`} ${
               (!isFormValid() || isLoading) && styles.disabled
             }`}
             disabled={!isFormValid() || isLoading}
