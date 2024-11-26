@@ -1,11 +1,12 @@
-import React from "react";
 import styles from "./DashboardWrapper.module.scss";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-
+import { Routes, Route } from "react-router-dom";
 import { useAppSelector } from "../../store/redux";
+import Project from "../projectSections/Project";
+import Home from "../Home/Home";
 
-const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
+const DashboardWrapper = () => {
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed
   );
@@ -21,10 +22,13 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
           isSidebarCollapsed
             ? styles["sidebar-collapsed"]
             : styles["sidebar-expanded"]
-        } background`}
+        }`}
       >
         <Navbar />
-        {children}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects/:id" element={<Project />} />
+        </Routes>
       </main>
     </div>
   );

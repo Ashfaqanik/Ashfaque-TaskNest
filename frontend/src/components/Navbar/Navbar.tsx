@@ -21,7 +21,11 @@ export default function Navbar() {
             <Menu />
           </button>
         )}
-        <div className={styles.searchContainer}>
+        <div
+          className={`${styles.searchContainer} ${
+            !isSidebarCollapsed ? styles.expanded : styles.collapsed
+          }`}
+        >
           <Search className={styles.searchIcon} />
           <input
             className={`${styles.searchInput} searchBox`}

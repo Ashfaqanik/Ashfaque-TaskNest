@@ -1,7 +1,7 @@
 .toggle {
-  height: 25px;
-  width: 50px;
-  top: 3px;
+  height: 23px;
+  width: 46px;
+  top: 4px;
   right: 2px;
   border-radius: 15px;
   margin: 0;
@@ -19,8 +19,8 @@
     border-radius: 50%;
     background: rgb(235, 235, 141);
     position: absolute;
-    top: 2.5px;
-    left: 2.5px;
+    top: 1.3px;
+    left: 1px;
     box-shadow: 0 0 3px yellow;
     z-index: 1;
     transition: all 0.3s ease;
@@ -36,7 +36,7 @@
         left: 2px;
         top: 5px;
         height: 5px;
-        width: 10px;
+        width: 8px;
         transform: rotate(-45deg);
       }
 
@@ -52,7 +52,7 @@
     &.night {
       background: whitesmoke;
       box-shadow: 0 0 3px whitesmoke;
-      transform: translate(30px, 0);
+      transform: translate(25px, 0);
 
       .child {
         opacity: 0.4;

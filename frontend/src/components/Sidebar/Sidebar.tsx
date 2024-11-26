@@ -16,24 +16,17 @@ import {
   AlertTriangle,
   Briefcase,
 } from "lucide-react";
+import { useGetProjectsQuery } from "../../state/api";
+
 import { Link, useLocation } from "react-router-dom";
 import { useSidebar } from "../../context/SidebarContext";
-
-interface Project {
-  id: string;
-  name: string;
-}
-
-const projects: Project[] = [
-  { id: "1", name: "Project One" },
-  { id: "2", name: "Project Two" },
-  { id: "3", name: "Project Three" },
-];
 
 export default function Sidebar() {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
   const { isSidebarCollapsed, toggleSidebar } = useSidebar();
+  const { data: projects } = useGetProjectsQuery();
+  console.log("Sidebar projects:", projects);
 
   return (
     <div
@@ -75,7 +68,7 @@ export default function Sidebar() {
         </button>
 
         {showProjects &&
-          projects.map((project) => (
+          projects?.map((project) => (
             <SidebarLink
               key={project.id}
               icon={Briefcase}
