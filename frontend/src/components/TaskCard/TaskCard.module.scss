@@ -1,0 +1,45 @@
+@use "../../globalStyles/colors";
+
+.taskCard {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  //   background-color: colors.$dark-bg;
+  //   color: colors.$blue-100;
+  box-shadow: colors.$dark-secondary;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0px 6px 10px black;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  .attachments {
+    margin-bottom: 1rem;
+
+    .attachmentsList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+
+      .attachmentImage {
+        max-width: 90%;
+        height: auto;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}

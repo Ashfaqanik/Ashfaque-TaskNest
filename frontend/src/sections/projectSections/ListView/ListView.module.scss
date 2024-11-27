@@ -1,0 +1,38 @@
+@use "../../../globalStyles/colors";
+
+.listContainer {
+  padding: 0 1rem 2rem;
+  margin-top: 13.5rem;
+
+  @media (min-width: 1280px) {
+    padding: 0 1.5rem 2rem;
+  }
+
+  .headerButton {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .tasksGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+}

@@ -245,6 +245,23 @@ body.dark,
       background-color: #2563eb; // Blue hover
     }
   }
+  .listContainerHeaderButton {
+    background-color: colors.$blue-50;
+    border-color: colors.$gray-500;
+
+    color: colors.$gray-800;
+    cursor: pointer;
+
+    &:hover {
+      background-color: colors.$blue-primary;
+      border-color: colors.$blue-primary;
+      color: colors.$gray-100;
+    }
+  }
+  .taskCard {
+    background-color: colors.$blue-100;
+    color: colors.$gray-800;
+  }
 }
 
 .dark {
@@ -421,6 +438,9 @@ body.dark,
       &:focus {
         border-color: colors.$gray-400;
       }
+      &::placeholder {
+        color: colors.$gray-400;
+      }
     }
     .searchIcon {
       color: colors.$gray-100;
@@ -465,5 +485,20 @@ body.dark,
     &:hover {
       background-color: colors.$blue-primary;
     }
+  }
+  .listContainerHeaderButton {
+    background-color: colors.$dark-bg;
+    border-color: colors.$gray-100;
+    color: colors.$gray-100;
+    cursor: pointer;
+
+    &:hover {
+      background-color: colors.$blue-primary;
+      border-color: colors.$blue-primary;
+    }
+  }
+  .taskCard {
+    background-color: colors.$dark-tertiary;
+    color: colors.$blue-100;
   }
 }

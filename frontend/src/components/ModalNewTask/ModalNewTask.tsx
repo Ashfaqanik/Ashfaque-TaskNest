@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "../../components/Modal/Modal"; // Adjust the path to your Modal component
+import Modal from "../../components/Modal/Modal";
 import { Priority, Status, useCreateTaskMutation } from "../../state/api";
 import { formatISO } from "date-fns";
 import styles from "./ModalNewTask.module.scss";

@@ -6,6 +6,7 @@ import Board from "../../sections/projectSections/BoardView/BoardView";
 // import Timeline from "./TimelineView";
 // import Table from "./TableView";
 import ModalNewTask from "../../components/ModalNewTask/ModalNewTask";
+import ListView from "./ListView/ListView";
 
 const Project: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,10 +28,10 @@ const Project: React.FC = () => {
       {activeTab === "Board" && (
         <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      {/* {activeTab === "List" && (
-          <List id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-        )}
-        {activeTab === "Timeline" && (
+      {activeTab === "List" && (
+        <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+      )}
+      {/* {activeTab === "Timeline" && (
           <Timeline id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
         )}
         {activeTab === "Table" && (
