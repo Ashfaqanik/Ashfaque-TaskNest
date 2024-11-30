@@ -11,34 +11,32 @@ html.light,
 body.light,
 #root.light,
 .app.light {
-  //overflow: hidden;
   margin: 0;
   font-family: "Inter", sans-serif;
   height: 100%;
   width: 100%;
   font-size: 0.875rem;
   background-color: colors.$blue-50;
+  overflow: scroll;
+  overscroll-behavior: contain;
 }
 html.dark,
 body.dark,
 #root.dark,
 .app.dark {
-  //overflow: hidden;
   margin: 0;
   font-family: "Inter", sans-serif;
   height: 100%;
   width: 100%;
   font-size: 0.875rem;
   background-color: colors.$dark-bg;
+  overflow: scroll;
+  overscroll-behavior: contain;
 }
 
 .light {
-  // .text {
   color: colors.$gray-800;
-  //}
-  //.background {
-  background-color: colors.$blue-50; // Default light mode background
-  //}
+  background-color: colors.$blue-50;
   .nav {
     background-color: colors.$blue-300;
     .menu {
@@ -245,7 +243,7 @@ body.dark,
       background-color: #2563eb; // Blue hover
     }
   }
-  .listContainerHeaderButton {
+  .roundButton {
     background-color: colors.$blue-50;
     border-color: colors.$gray-500;
 
@@ -262,15 +260,72 @@ body.dark,
     background-color: colors.$blue-100;
     color: colors.$gray-800;
   }
+  /* TIMELINE STYLING */
+  .timeline {
+    ._3_ygE {
+      border-radius: 0.375rem 0 0 0;
+      border: 1px solid colors.$gray-300;
+      border-right: none;
+    }
+    ._2eZzQ {
+      border-color: colors.$gray-300;
+    }
+    ._2dZTy {
+      fill: white;
+
+      &:nth-child(even) {
+        fill: colors.$blue-100;
+      }
+    }
+    ._35nLX {
+      fill: colors.$blue-100;
+      stroke: colors.$gray-300;
+    }
+    ._9w8d5 {
+      fill: colors.$gray-800;
+    }
+    ._34SS0 {
+      background-color: white;
+
+      &:nth-of-type(even) {
+        background-color: colors.$blue-100;
+      }
+    }
+    ._RuwuK,
+    ._3rUKi,
+    ._1rLuZ {
+      stroke: colors.$gray-300;
+    }
+    ._3ZbQT {
+      border-left: none;
+      border-color: colors.$gray-300;
+    }
+    ._3T42e {
+      background-color: white;
+    }
+    ._29NTg {
+      color: colors.$gray-500;
+    }
+    ::-webkit-scrollbar {
+      width: auto;
+      height: 8px;
+      overflow: auto;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #cccccc;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+    }
+  }
 }
 
 .dark {
-  //.text {
   color: white;
-  //}
-  //.background {
   background-color: colors.$dark-bg;
-  //}
   .nav {
     background-color: colors.$gray-800;
     .menu {
@@ -419,7 +474,13 @@ body.dark,
         text-decoration: underline;
 
         &::after {
-          background-color: colors.$dark-secondary;
+          content: "";
+          position: absolute;
+          bottom: -0.5rem;
+          left: 15px;
+          height: 2px;
+          width: 80%;
+          background-color: colors.$blue-400;
         }
       }
     }
@@ -451,6 +512,9 @@ body.dark,
     //box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     background-color: colors.$gray-600;
     color: colors.$gray-100;
+    &::placeholder {
+      color: #ccc;
+    }
     &:focus {
       outline: none;
       border-color: colors.$dark-secondary;
@@ -486,7 +550,7 @@ body.dark,
       background-color: colors.$blue-primary;
     }
   }
-  .listContainerHeaderButton {
+  .roundButton {
     background-color: colors.$dark-bg;
     border-color: colors.$gray-100;
     color: colors.$gray-100;
@@ -500,5 +564,65 @@ body.dark,
   .taskCard {
     background-color: colors.$dark-tertiary;
     color: colors.$blue-100;
+  }
+  .timeline {
+    ._3_ygE {
+      border-radius: 0.375rem 0 0 0;
+      border: 1px solid colors.$stroke-dark;
+      border-right: none;
+    }
+    ._2eZzQ {
+      border-color: colors.$stroke-dark;
+    }
+    ._2dZTy {
+      fill: colors.$dark-secondary;
+
+      &:nth-child(even) {
+        fill: colors.$dark-tertiary;
+      }
+    }
+    ._35nLX {
+      fill: colors.$dark-tertiary;
+      stroke: colors.$stroke-dark;
+    }
+    ._9w8d5 {
+      fill: white;
+    }
+    ._34SS0 {
+      background-color: colors.$dark-secondary;
+
+      &:nth-of-type(even) {
+        background-color: colors.$dark-tertiary;
+      }
+    }
+    ._RuwuK,
+    ._3rUKi,
+    ._1rLuZ {
+      stroke: colors.$stroke-dark;
+    }
+    ._3ZbQT {
+      border-left: none;
+      border-color: colors.$stroke-dark;
+    }
+    ._3T42e {
+      background-color: colors.$dark-bg;
+    }
+    ._29NTg {
+      color: colors.$gray-500;
+    }
+    ::-webkit-scrollbar {
+      width: auto;
+      height: 8px;
+      overflow: auto;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #cccccc;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+    }
   }
 }

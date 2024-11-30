@@ -1,0 +1,80 @@
+.timelineContainer {
+  padding: 20px;
+  margin-top: 12.5rem;
+  @media (max-width: 768px) {
+    margin-top: 15rem;
+  }
+  @media (min-width: 1280px) {
+    margin-top: 13rem;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .lastPart {
+      display: flex;
+      gap: 12px;
+      .addButton {
+        margin-top: 6px;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.2s;
+      }
+      .select {
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1rem;
+        outline: none;
+        cursor: pointer;
+      }
+      .selectBackgroundLight {
+        background-color: #cbdcf5;
+        border: 1px solid #9fc1f1;
+        &:focus {
+          border-color: #57a0ee;
+        }
+      }
+      .selectBackgroundDark {
+        background-color: #57a0ee;
+        border: 1px solid #57a0ee;
+        &:focus {
+          border-color: #007bff;
+        }
+      }
+    }
+  }
+
+  .ganttContainer {
+    background-color: #e7edf6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .ganttContainerDark {
+    background-color: #3b465f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .loading,
+  .error {
+    text-align: center;
+    color: #ff0000;
+    font-weight: bold;
+  }
+}

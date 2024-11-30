@@ -10,18 +10,18 @@
   cursor: pointer;
 
   &.night {
-    background-image: linear-gradient(rgb(85, 85, 118), rgb(111, 57, 165));
+    background-image: linear-gradient(rgb(98, 98, 133), rgb(126, 80, 172));
   }
 
   .notch {
-    height: 20px;
-    width: 20px;
+    height: 21px;
+    width: 21px;
     border-radius: 50%;
-    background: rgb(235, 235, 141);
+    background: rgb(232, 232, 13);
     position: absolute;
-    top: 1.3px;
-    left: 1px;
-    box-shadow: 0 0 3px yellow;
+    top: 0.08rem;
+    left: 0.39px;
+    //box-shadow: 0 0 0px yellow;
     z-index: 1;
     transition: all 0.3s ease;
 
@@ -51,7 +51,7 @@
 
     &.night {
       background: whitesmoke;
-      box-shadow: 0 0 3px whitesmoke;
+      //box-shadow: 0 0 3px whitesmoke;
       transform: translate(25px, 0);
 
       .child {

@@ -23,7 +23,7 @@ export default function ListView({ id, setIsModalNewTaskOpen }: Props) {
           name="Task List"
           buttonComponent={
             <button
-              className={`${styles.headerButton} listContainerHeaderButton`}
+              className={`${styles.headerButton} roundButton`}
               onClick={() => setIsModalNewTaskOpen(true)}
             >
               +
