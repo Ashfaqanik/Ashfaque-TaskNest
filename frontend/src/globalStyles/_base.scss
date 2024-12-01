@@ -321,6 +321,18 @@ body.dark,
       background-color: #f0f0f0;
     }
   }
+  .dataGridColor {
+    background-color: colors.$blue-100;
+    color: rgb(16, 15, 15);
+  }
+  .dataGridHeaderColor {
+    background-color: colors.$blue-300;
+    color: rgb(11, 10, 10);
+  }
+  .tableStatusColor {
+    background-color: inherit;
+    color: #1f790fb2;
+  }
 }
 
 .dark {
@@ -575,7 +587,7 @@ body.dark,
       border-color: colors.$stroke-dark;
     }
     ._2dZTy {
-      fill: colors.$dark-secondary;
+      fill: #252f50;
 
       &:nth-child(even) {
         fill: colors.$dark-tertiary;
@@ -589,7 +601,7 @@ body.dark,
       fill: white;
     }
     ._34SS0 {
-      background-color: colors.$dark-secondary;
+      background-color: #252f50;
 
       &:nth-of-type(even) {
         background-color: colors.$dark-tertiary;
@@ -624,5 +636,17 @@ body.dark,
     ::-webkit-scrollbar-track {
       background-color: #f0f0f0;
     }
+  }
+  .dataGridColor {
+    background-color: #3b465f;
+    color: white;
+  }
+  .dataGridHeaderColor {
+    background-color: #4666b1;
+    color: white;
+  }
+  .tableStatusColor {
+    background-color: inherit;
+    color: #1bc142;
   }
 }

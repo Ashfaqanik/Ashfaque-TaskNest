@@ -1,0 +1,56 @@
+// General container styles
+.tableViewContainer {
+  height: 500px;
+  width: 100%;
+  padding: 1rem;
+  padding-bottom: 3rem;
+  margin-top: 11rem;
+  margin-right: 5rem;
+}
+
+// Header styles
+.headerContainer {
+  padding-top: 1.25rem;
+}
+
+// Add Task Button
+.addButton {
+  margin-top: 6px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+// DataGrid styles
+.dataGrid {
+  .MuiDataGrid-cell {
+    font-size: 0.875rem;
+  }
+}
+
+// Status styling
+.status {
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+// Loading and error messages
+.loading,
+.error {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: gray;
+}
+
+.error {
+  color: red;
+}

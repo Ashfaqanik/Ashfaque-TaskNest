@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import ProjectHeader from "./ProjectHeader/ProjectHeader";
 import Board from "../../sections/projectSections/BoardView/BoardView";
-// import List from "./ListView";
-// import Timeline from "./TimelineView";
-// import Table from "./TableView";
 import ModalNewTask from "../../components/ModalNewTask/ModalNewTask";
 import ListView from "./ListView/ListView";
 import TimeLineView from "./TimeLineView/TimeLineView";
+import TableView from "./TableView/TableView";
 
 const Project: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,9 +33,9 @@ const Project: React.FC = () => {
       {activeTab === "Timeline" && (
         <TimeLineView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      {/* {activeTab === "Table" && (
-          <Table id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-        )} */}
+      {activeTab === "Table" && (
+        <TableView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+      )}
     </div>
   );
 };

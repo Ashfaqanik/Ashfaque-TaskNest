@@ -94,8 +94,8 @@ const TimelineView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
           {...displayOptions}
           columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
           listCellWidth="100px"
-          barBackgroundColor={isDarkMode ? "#252f50" : "#77a6d4"}
-          barBackgroundSelectedColor={isDarkMode ? "#1643da" : "#1f7ede"}
+          barBackgroundColor={isDarkMode ? "#4666b1" : "#77a6d4"}
+          barBackgroundSelectedColor={isDarkMode ? "#3e64e4" : "#1f7ede"}
         />
       </div>
     </div>
