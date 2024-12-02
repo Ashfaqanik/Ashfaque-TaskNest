@@ -14,14 +14,14 @@
   }
 
   .notch {
-    height: 21px;
-    width: 21px;
+    height: 22.5px;
+    width: 22px;
     border-radius: 50%;
-    background: rgb(232, 232, 13);
+    background: rgb(231, 231, 48);
     position: absolute;
-    top: 0.08rem;
+    top: 0.071rem;
     left: 0.39px;
-    //box-shadow: 0 0 0px yellow;
+    box-shadow: 0 0 0px yellow;
     z-index: 1;
     transition: all 0.3s ease;
 

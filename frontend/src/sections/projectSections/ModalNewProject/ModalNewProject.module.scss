@@ -1,0 +1,93 @@
+@use "../../../globalStyles//colors";
+
+.modalForm {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .inputStyles {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    // Dark mode styles
+    &.dark {
+      border-color: colors.$dark-tertiary;
+      background-color: colors.$dark-tertiary;
+      &::placeholder {
+        color: #ccc;
+      }
+      color: white;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .dateInputs {
+    display: grid;
+    gap: 1.5rem;
+    input[type="date"] {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23505050' class='bi bi-calendar' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm11 3H1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3zM2 5h12v1H2V5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 1rem 1rem;
+      color: #574e4e;
+
+      &::-webkit-calendar-picker-indicator {
+        opacity: 0;
+      }
+    }
+    &.dark {
+      input[type="date"] {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ccc' class='bi bi-calendar' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm11 3H1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3zM2 5h12v1H2V5z'/%3E%3C/svg%3E");
+        color: #e0d5d5;
+      }
+    }
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+  }
+  .submitButton {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    background-color: colors.$blue-primary;
+    border: none;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+
+    &:hover {
+      background-color: colors.$dark-secondary;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.5);
+    }
+    &.dark {
+      background-color: colors.$dark-secondary;
+      &:hover {
+        background-color: colors.$blue-primary;
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}

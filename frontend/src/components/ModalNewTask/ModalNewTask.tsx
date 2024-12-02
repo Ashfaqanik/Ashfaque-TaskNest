@@ -49,12 +49,10 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
         projectId: id !== null ? Number(id) : Number(projectId),
       }).unwrap();
 
-      toast.success("Task created successfully!");
-
+      resetForm();
       // Closing the modal
       onClose();
-
-      resetForm();
+      toast.success("Task created successfully!");
     } catch (error) {
       toast.error("Failed to create task. Please try again.");
     }
