@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { useAppSelector } from "../../store/redux";
 import Project from "../projectSections/Project";
 import Home from "../Home/Home";
+import Timeline from "../Timeline/Timeline";
 
 const DashboardWrapper = () => {
   const isSidebarCollapsed = useAppSelector(
@@ -28,6 +29,7 @@ const DashboardWrapper = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:id" element={<Project />} />
+          <Route path="/timeline" element={<Timeline />} />
         </Routes>
       </main>
     </div>
