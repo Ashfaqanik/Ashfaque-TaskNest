@@ -7,6 +7,7 @@ import Project from "../ProjectSections/Project";
 import Home from "../Home/Home";
 import Timeline from "../Timeline/Timeline";
 import SearchPage from "../Search/SearchPage";
+import Settings from "../Settings/Settings";
 
 const DashboardWrapper = () => {
   const isSidebarCollapsed = useAppSelector(
@@ -32,6 +33,7 @@ const DashboardWrapper = () => {
           <Route path="/projects/:id" element={<Project />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
     </div>
