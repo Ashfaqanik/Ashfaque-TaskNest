@@ -3,9 +3,10 @@ import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Routes, Route } from "react-router-dom";
 import { useAppSelector } from "../../store/redux";
-import Project from "../projectSections/Project";
+import Project from "../ProjectSections/Project";
 import Home from "../Home/Home";
 import Timeline from "../Timeline/Timeline";
+import SearchPage from "../Search/SearchPage";
 
 const DashboardWrapper = () => {
   const isSidebarCollapsed = useAppSelector(
@@ -30,6 +31,7 @@ const DashboardWrapper = () => {
           <Route path="/" element={<Home />} />
           <Route path="/projects/:id" element={<Project />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </main>
     </div>

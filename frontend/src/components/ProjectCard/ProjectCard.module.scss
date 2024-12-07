@@ -1,0 +1,19 @@
+@use "../../globalStyles/colors";
+.projectContainer {
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: colors.$blue-100;
+  padding-left: 15px;
+  box-shadow: colors.$dark-secondary;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    box-shadow: 0px 6px 10px colors.$gray-500;
+  }
+  //width: 40%;
+
+  &.dark {
+    background-color: colors.$dark-tertiary;
+  }
+}

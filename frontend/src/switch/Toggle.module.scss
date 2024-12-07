@@ -15,13 +15,13 @@
 
   .notch {
     height: 22.5px;
-    width: 22px;
+    width: 22.5px;
     border-radius: 50%;
-    background: rgb(231, 231, 48);
+    background: rgb(238, 216, 13);
     position: absolute;
     top: 0.071rem;
     left: 0.39px;
-    box-shadow: 0 0 0px yellow;
+    box-shadow: 0 0 0px rgb(215, 196, 25);
     z-index: 1;
     transition: all 0.3s ease;
 

@@ -1,0 +1,14 @@
+@use "../../globalStyles/colors";
+
+.userContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  font-size: large;
+  // border-radius: 50%;
+  padding: 4px;
+  box-shadow: colors.$dark-secondary;
+  .img {
+    border-radius: 50%;
+  }
+}

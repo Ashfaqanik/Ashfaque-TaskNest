@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import ProjectHeader from "./ProjectHeader/ProjectHeader";
-import Board from "../../sections/projectSections/BoardView/BoardView";
+import Board from "./BoardView/BoardView";
 import ModalNewTask from "../../components/ModalNewTask/ModalNewTask";
 import ListView from "./ListView/ListView";
 import TimeLineView from "./TimeLineView/TimeLineView";

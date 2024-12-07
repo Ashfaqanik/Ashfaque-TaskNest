@@ -11,7 +11,7 @@ import {
   Share2,
   Table,
 } from "lucide-react";
-import ModalNewProject from "../../../sections/projectSections/ModalNewProject/ModalNewProject";
+import ModalNewProject from "../ModalNewProject/ModalNewProject";
 import styles from "./ProjectHeader.module.scss";
 
 // Defined types for Props

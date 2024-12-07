@@ -260,7 +260,6 @@ body.dark,
     background-color: colors.$blue-100;
     color: colors.$gray-800;
   }
-  /* TIMELINE STYLING */
   .timeline {
     ._3_ygE {
       border-radius: 0.375rem 0 0 0;
@@ -332,6 +331,17 @@ body.dark,
   .tableStatusColor {
     background-color: inherit;
     color: #1f790fb2;
+  }
+  .searchInputColor {
+    background-color: white;
+    border: 1px solid colors.$blue-100;
+    &::placeholder {
+      color: colors.$gray-500;
+    }
+    color: colors.$gray-800;
+  }
+  .searchResultsTitle {
+    color: #333;
   }
 }
 
@@ -652,5 +662,16 @@ body.dark,
   .tableStatusColor {
     background-color: inherit;
     color: #1bc142;
+  }
+  .searchInputColor {
+    background-color: colors.$gray-400;
+    border: 1px solid #5d6772;
+    &::placeholder {
+      color: #423e3e;
+    }
+    color: colors.$gray-800;
+  }
+  .searchResultsTitle {
+    color: #dfe3ef;
   }
 }
