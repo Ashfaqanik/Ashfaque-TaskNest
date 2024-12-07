@@ -343,6 +343,16 @@ body.dark,
   .searchResultsTitle {
     color: #333;
   }
+  .usersToolbarColor {
+    background-color: #e7edf6;
+    border-bottom: 1px solid #e0e0e0;
+    button {
+      color: #27496b;
+    }
+  }
+  .usersListColor {
+    background-color: #e7edf6;
+  }
 }
 
 .dark {
@@ -673,5 +683,15 @@ body.dark,
   }
   .searchResultsTitle {
     color: #dfe3ef;
+  }
+  .usersToolbarColor {
+    background-color: colors.$dark-tertiary;
+    border-bottom: 1px solid colors.$dark-tertiary;
+    button {
+      color: #d4dee9;
+    }
+  }
+  .usersListColor {
+    background-color: colors.$dark-tertiary;
   }
 }
