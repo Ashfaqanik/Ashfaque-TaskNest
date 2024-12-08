@@ -1,0 +1,27 @@
+.teamsContainer {
+  margin-top: 4rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 10px;
+  .toolbar {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+
+    button {
+      font-weight: 500;
+    }
+  }
+  .gridContainer {
+    height: 90%;
+    width: 100%;
+  }
+  // DataGrid styles
+  .dataGrid {
+    .MuiDataGrid-cell {
+      font-size: 0.875rem;
+    }
+  }
+}
