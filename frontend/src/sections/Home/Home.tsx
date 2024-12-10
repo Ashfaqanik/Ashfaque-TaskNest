@@ -4,7 +4,7 @@ import {
   Project,
   Task,
   useGetProjectsQuery,
-  useGetTasksQuery,
+  useGetTasksByUserQuery,
 } from "../../state/api";
 import { useAppSelector } from "../../store/redux";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -49,13 +49,12 @@ const taskColumns: GridColDef[] = [
   },
 ];
 
-const COLORS = ["#129673", "#1973c1", "#FFBB28", "#FF8042"];
 const Home = () => {
   const {
     data: tasks,
     isLoading: tasksLoading,
     isError: tasksError,
-  } = useGetTasksQuery({ projectId: parseInt("1") });
+  } = useGetTasksByUserQuery(1);
   const { data: projects, isLoading: isProjectsLoading } =
     useGetProjectsQuery();
 
@@ -66,7 +65,10 @@ const Home = () => {
 
   const statusCount = projects.reduce(
     (acc: Record<string, number>, project: Project) => {
-      const status = project.endDate ? "Completed" : "Active";
+      const status =
+        project.endDate && new Date(project.endDate) < new Date()
+          ? "Completed"
+          : "Active";
       acc[status] = (acc[status] || 0) + 1;
       return acc;
     },
@@ -116,7 +118,7 @@ const Home = () => {
                 {projectStatus.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
+                    fill={entry.name == "Completed" ? "#129673" : "#458ac7"}
                   />
                 ))}
               </Pie>
@@ -135,7 +137,7 @@ const Home = () => {
           </ResponsiveContainer>
         </div>
         <div className={`${styles.card} ${isDarkMode ? styles.dark : ""}`}>
-          <h3>Task Priority Distribution</h3>
+          <h3>Your Task Priorities</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={taskDistribution}>
               <CartesianGrid
