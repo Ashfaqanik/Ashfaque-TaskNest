@@ -16,7 +16,7 @@ body.light,
   height: 100%;
   width: 100%;
   font-size: 0.875rem;
-  background-color: colors.$blue-50;
+  background-color: colors.$light-bg;
   overflow: scroll;
   overscroll-behavior: contain;
 }
@@ -36,7 +36,7 @@ body.dark,
 
 .light {
   color: colors.$gray-800;
-  background-color: colors.$blue-50;
+  background-color: colors.$light-bg;
   .nav {
     background-color: colors.$blue-300;
     .menu {
