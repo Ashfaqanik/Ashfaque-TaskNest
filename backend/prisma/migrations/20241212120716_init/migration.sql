@@ -1,12 +1,22 @@
 -- CreateTable
 CREATE TABLE "User" (
     "userId" SERIAL NOT NULL,
-    "cognitoId" TEXT NOT NULL,
     "username" TEXT NOT NULL,
-    "profilePictureUrl" TEXT,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "imageId" INTEGER,
     "teamId" INTEGER,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
+);
+
+-- CreateTable
+CREATE TABLE "Image" (
+    "id" SERIAL NOT NULL,
+    "data" BYTEA NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Image_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -88,10 +98,16 @@ CREATE TABLE "Comment" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_cognitoId_key" ON "User"("cognitoId");
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_imageId_key" ON "User"("imageId");
+
+-- AddForeignKey
+ALTER TABLE "User" ADD CONSTRAINT "User_imageId_fkey" FOREIGN KEY ("imageId") REFERENCES "Image"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE SET NULL ON UPDATE CASCADE;

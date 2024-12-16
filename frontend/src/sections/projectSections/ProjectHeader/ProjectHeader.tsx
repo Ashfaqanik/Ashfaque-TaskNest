@@ -45,7 +45,7 @@ const ProjectHeader: React.FC<Props> = ({ activeTab, setActiveTab }: Props) => {
               className={`${styles.newBoardButton} button`}
               onClick={() => setIsModalNewProjectOpen(true)}
             >
-              <PlusSquare className={styles.icon} /> New Boards
+              <PlusSquare className={styles.icon} /> New Project
             </button>
           }
         />

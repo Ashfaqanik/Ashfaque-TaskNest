@@ -38,6 +38,9 @@
       display: flex;
       height: 2.5rem;
       width: 200px;
+      @media (max-width: 768px) {
+        width: 170px;
+      }
 
       .searchIcon {
         position: absolute;
@@ -75,18 +78,18 @@
       border-radius: 0.25rem;
       cursor: pointer;
     }
-    .divider {
-      margin-left: 0.5rem;
-      margin-right: 1.25rem;
-      display: none;
-      min-height: 2em;
-      width: 0.1rem;
+    // .divider {
+    //   margin-left: 0.5rem;
+    //   margin-right: 1.25rem;
+    //   display: none;
+    //   min-height: 2em;
+    //   width: 0.1rem;
 
-      // Media query for md breakpoint
-      @media (min-width: 768px) {
-        display: inline-block;
-      }
-    }
+    //   // Media query for md breakpoint
+    //   @media (min-width: 768px) {
+    //     display: inline-block;
+    //   }
+    // }
     // DarkModeToggle.module.scss
     .toggleButton {
       width: 10px;
@@ -97,6 +100,29 @@
       cursor: pointer;
       &:hover {
         border-radius: 0.3rem;
+      }
+    }
+    .profileImage {
+      margin-left: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid colors.$gray-500;
+    }
+    .logoutButton {
+      margin-left: 3px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      margin-bottom: 4px;
+      align-items: center;
+
+      svg {
+        min-height: min-content;
+        min-width: min-content;
+        transition: color 0.3s ease;
       }
     }
   }

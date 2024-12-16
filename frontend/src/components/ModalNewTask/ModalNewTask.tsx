@@ -5,6 +5,7 @@ import { formatISO } from "date-fns";
 import styles from "./ModalNewTask.module.scss";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 type Props = {
   isOpen: boolean;
@@ -24,9 +25,33 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
   const [authorUserId, setAuthorUserId] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
   const [projectId, setProjectId] = useState("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+
+  const handleImageUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "taskmanagy");
+
+    try {
+      // Calling the backend API to upload to Cloudinary
+      const { data } = await axios.post(
+        "https://api.cloudinary.com/v1_1/dpabqdea9/image/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setImageUrl(data.secure_url);
+    } catch (error) {
+      toast.error("Image upload failed. Please try again.");
+    }
+  };
 
   const handleSubmit = async () => {
-    if (!title || !authorUserId || !(id !== null || projectId)) return;
+    if (!title || !authorUserId || !imageUrl || !(id !== null || projectId))
+      return;
 
     try {
       const formattedStartDate = formatISO(new Date(startDate), {
@@ -47,12 +72,12 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
         authorUserId: parseInt(authorUserId),
         assignedUserId: parseInt(assignedUserId),
         projectId: id !== null ? Number(id) : Number(projectId),
+        image: imageUrl,
       }).unwrap();
 
       resetForm();
-      // Closing the modal
       onClose();
-      toast.success("Task created successfully!");
+      toast.success("Task created successfully");
     } catch (error) {
       toast.error("Failed to create task. Please try again.");
     }
@@ -69,6 +94,7 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
     setAuthorUserId("");
     setAssignedUserId("");
     setProjectId("");
+    setImageUrl("");
   };
 
   const isFormValid = () => {
@@ -102,10 +128,6 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
               className={`${styles.selectInput} modalContainerFormSelectInputColor`}
               value={status}
               onChange={(e) => setStatus(e.target.value as Status)}
-
-              //   onChange={(e) =>
-              //     setStatus(Status[e.target.value as keyof typeof Status])
-              //   }
             >
               <option value="">Select Status</option>
               {Object.values(Status).map((statusOption) => (
@@ -173,6 +195,18 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
               onChange={(e) => setProjectId(e.target.value)}
             />
           )}
+          {/* Image Upload Input */}
+          <input
+            type="file"
+            className={`${styles.formInput} modalContainerFormInputColor`}
+            onChange={(e) => {
+              if (e.target.files) {
+                const file = e.target.files[0];
+                handleImageUpload(file);
+              }
+            }}
+          />
+          {imageUrl && <p>Image uploaded successfully!</p>}{" "}
           <button
             type="submit"
             className={`${`${styles.formButton} modalContainerFormButtonColor`} ${

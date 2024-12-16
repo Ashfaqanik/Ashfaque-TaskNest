@@ -7,7 +7,7 @@ import {
   useUpdateTaskStatusMutation,
 } from "../../../state/api";
 
-import { EllipsisVertical, MessageSquareMore, Plus } from "lucide-react";
+import { MessageSquareMore, Plus } from "lucide-react";
 import styles from "./BoardView.module.scss";
 
 type BoardProps = {
@@ -91,9 +91,9 @@ const TaskColumn = ({
           >
             <Plus size={20} />
           </button>
-          <button className="columnActionsButton">
+          {/* <button className="columnActionsButton">
             <EllipsisVertical size={20} />
-          </button>
+          </button> */}
         </div>
       </div>
       {tasks
@@ -132,10 +132,10 @@ const Task = ({ task }: TaskProps) => {
       ref={drag}
       className={`${styles.task} taskBox ${isDragging ? styles.dragging : ""}`}
     >
-      {task.attachments && task.attachments.length > 0 && (
+      {task.image !== null && (
         <img
-          src={`/${task.attachments[0].fileURL}`}
-          alt={task.attachments[0].fileName}
+          src={`${task.image}`}
+          //alt={task.title}
           width={300}
           height={150}
           className={styles.taskImage}
@@ -159,9 +159,9 @@ const Task = ({ task }: TaskProps) => {
               </div>
             ))}
           </div>
-          <button className={`${styles.taskMenu} taskMenuColor`}>
+          {/* <button className={`${styles.taskMenu} taskMenuColor`}>
             <EllipsisVertical size={26} />
-          </button>
+          </button> */}
         </div>
 
         <div className={styles.taskTitle}>
@@ -185,7 +185,7 @@ const Task = ({ task }: TaskProps) => {
           <div className={styles.taskUsers}>
             {task.assignee && (
               <img
-                src={`/${task.assignee.profilePictureUrl!}`}
+                src={`${task.assignee.image!}`}
                 alt={task.assignee.username}
                 width={30}
                 height={30}
@@ -194,7 +194,7 @@ const Task = ({ task }: TaskProps) => {
             )}
             {task.author && (
               <img
-                src={`/${task.author.profilePictureUrl!}`}
+                src={`${task.author.image!}`}
                 alt={task.author.username}
                 width={30}
                 height={30}

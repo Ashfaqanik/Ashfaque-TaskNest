@@ -53,16 +53,16 @@ body.dark,
         color: colors.$gray-500;
       }
     }
-    .settingsLink {
+    .logOutColor {
       color: colors.$gray-800;
       background-color: colors.$blue-300;
       &:hover {
         color: colors.$blue-primary;
       }
     }
-    .dividerColor {
-      background-color: colors.$gray-800;
-    }
+    // .dividerColor {
+    //   background-color: colors.$gray-800;
+    // }
     .toggleColor {
       background-color: colors.$blue-300;
       &:hover {
@@ -376,7 +376,7 @@ body.dark,
         color: colors.$gray-100;
       }
     }
-    .settingsLink {
+    .logOutColor {
       color: white;
       background-color: colors.$gray-800;
       &:hover {
@@ -384,9 +384,9 @@ body.dark,
         color: colors.$dark-secondary;
       }
     }
-    .dividerColor {
-      background-color: colors.$gray-500;
-    }
+    // .dividerColor {
+    //   background-color: colors.$gray-500;
+    // }
     .toggleColor {
       color: white;
       background-color: colors.$gray-800;

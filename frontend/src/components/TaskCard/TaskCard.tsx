@@ -10,13 +10,12 @@ type Props = {
 const TaskCard: React.FC<Props> = ({ task }) => {
   return (
     <div className={`${styles.taskCard} taskCard`}>
-      {task.attachments && task.attachments.length > 0 && (
+      {task.image !== null && (
         <div className={styles.attachments}>
-          {/* <strong>Attachments:</strong> */}
           <div className={styles.attachmentsList}>
             <img
-              src={`/${task.attachments[0].fileURL}`}
-              alt={task.attachments[0].fileName}
+              src={`${task.image}`}
+              alt={task.title}
               className={styles.attachmentImage}
             />
           </div>

@@ -4,8 +4,6 @@
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
-  //   background-color: colors.$dark-bg;
-  //   color: colors.$blue-100;
   box-shadow: colors.$dark-secondary;
   transition: background-color 0.3s ease, color 0.3s ease;
 
@@ -27,13 +25,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1rem;
+      margin-top: 0.3rem;
 
       .attachmentImage {
-        max-width: 90%;
+        max-width: 100%;
         height: auto;
         border-radius: 0.5rem;
-        border: 1px solid #e5e7eb;
         transition: transform 0.3s ease;
 
         &:hover {

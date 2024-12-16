@@ -73,7 +73,8 @@
 
 .taskImage {
   border-radius: 0.5rem 0.5rem 0 0;
-  object-fit: cover;
+  object-fit: fill;
+  height: 12rem;
 }
 
 .taskContent {

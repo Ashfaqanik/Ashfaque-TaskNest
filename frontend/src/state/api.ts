@@ -28,17 +28,8 @@ export interface User {
   userId?: number;
   username: string;
   email: string;
-  profilePictureUrl?: string;
-  cognitoId?: string;
+  image?: string;
   teamId?: number;
-}
-
-export interface Attachment {
-  id: number;
-  fileURL: string;
-  fileName: string;
-  taskId: number;
-  uploadedById: number;
 }
 
 export interface Task {
@@ -58,7 +49,7 @@ export interface Task {
   author?: User;
   assignee?: User;
   comments?: Comment[];
-  attachments?: Attachment[];
+  image: string;
 }
 
 export interface SearchResults {

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -15,11 +17,11 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const getUser = async (req: Request, res: Response): Promise<void> => {
-  const { cognitoId } = req.params;
+  const { userId } = req.params;
   try {
     const user = await prisma.user.findUnique({
       where: {
-        cognitoId: cognitoId,
+        userId: Number(userId),
       },
     });
 
@@ -31,26 +33,34 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const postUser = async (req: Request, res: Response) => {
-  try {
-    const {
-      username,
-      cognitoId,
-      profilePictureUrl = "i1.jpg",
-      teamId = 1,
-    } = req.body;
-    const newUser = await prisma.user.create({
-      data: {
-        username,
-        cognitoId,
-        profilePictureUrl,
-        teamId,
-      },
-    });
-    res.json({ message: "User Created Successfully", newUser });
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving users: ${error.message}` });
-  }
-};
+// // User Login
+// export const loginUser = async (req: Request, res: Response): Promise<void> => {
+//   const { email, password } = req.body;
+
+//   try {
+//     // Find user by email
+//     const user = await prisma.user.findUnique({ where: { email } });
+//     if (!user || !user.password)
+//       res.status(404).json({ error: "User not found" });
+
+//     // Compare passwords
+//     const isValid = bcrypt.compare(
+//       password as string,
+//       user?.password as string
+//     );
+//     if (!isValid) res.status(401).json({ error: "Invalid credentials" });
+
+//     // Generate JWT
+//     const token = jwt.sign(
+//       { id: user?.userId },
+//       process.env.JWT_SECRET || "my_task_nest",
+//       {
+//         expiresIn: "1h",
+//       }
+//     );
+
+//     res.status(200).json({ message: "Login successful", token });
+//   } catch (error) {
+//     res.status(500).json({ error });
+//   }
+// };

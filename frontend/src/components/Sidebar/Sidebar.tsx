@@ -15,6 +15,7 @@ import {
   AlertOctagon,
   AlertTriangle,
   Briefcase,
+  Calendar,
 } from "lucide-react";
 import { useGetProjectsQuery } from "../../state/api";
 
@@ -32,9 +33,9 @@ export default function Sidebar() {
     <div
       className={`${styles.sidebar} ${
         isSidebarCollapsed ? styles.collapsed : styles.expanded
-      }`}
+      } containerColor`}
     >
-      <div className={`${styles.container} containerColor`}>
+      <div className={`${styles.container} `}>
         <div className={`${styles.topLogoSection} topLogoSectionColor`}>
           <img className={`${styles.image} imageUrl`} alt="TaskNest" />
           {isSidebarCollapsed ? null : (
@@ -48,24 +49,34 @@ export default function Sidebar() {
         </div>
         {/* Divider */}
         <hr className={`${styles.divider} dividerColor`} />
-        {/* NAVBAR LINKS */}
+        {/* Navbar Links */}
         <nav className={styles.nav}>
           <SidebarLink icon={Home} label="Home" href="/" />
-          <SidebarLink icon={Briefcase} label="Timeline" href="/timeline" />
+          <SidebarLink icon={Calendar} label="Timeline" href="/timeline" />
           <SidebarLink icon={Search} label="Search" href="/search" />
           <SidebarLink icon={Settings} label="Settings" href="/settings" />
           <SidebarLink icon={User} label="Users" href="/users" />
           <SidebarLink icon={Users} label="Teams" href="/teams" />
         </nav>
 
-        {/* PROJECTS LINKS */}
-        <button
-          onClick={() => setShowProjects((prev) => !prev)}
-          className={`${styles.toggleButton} toggleButtonColor`}
-        >
-          <span>Projects</span>
-          {showProjects ? <ChevronUp /> : <ChevronDown />}
-        </button>
+        {/* Projects Links */}
+        {projects?.length !== 0 ? (
+          <button
+            onClick={() => setShowProjects((prev) => !prev)}
+            className={`${styles.toggleButton} toggleButtonColor`}
+          >
+            <span>Projects</span>
+            {showProjects ? <ChevronUp /> : <ChevronDown />}
+          </button>
+        ) : (
+          <Link
+            to={"/projects/add"}
+            className={`${styles.toggleButton} toggleButtonColor`}
+          >
+            <span>Projects</span>
+            {showProjects ? <ChevronUp /> : <ChevronDown />}
+          </Link>
+        )}
 
         {showProjects &&
           projects?.map((project) => (
@@ -76,7 +87,7 @@ export default function Sidebar() {
               href={`/projects/${project.id}`}
             />
           ))}
-        {/* PRIORITY LINKS */}
+        {/* Priority Links */}
         <button
           onClick={() => setShowPriority((prev) => !prev)}
           className={`${styles.toggleButton} toggleButtonColor`}

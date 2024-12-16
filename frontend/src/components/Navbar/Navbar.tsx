@@ -1,6 +1,6 @@
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
-import { Search, Settings, Menu } from "lucide-react";
+import { Search, Settings, Menu, LogOutIcon } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useSidebar } from "../../context/SidebarContext";
 import Toggle from "../../switch/Toggle.jsx";
@@ -36,19 +36,20 @@ export default function Navbar() {
       </div>
       {/* Icons */}
       <div className={styles.iconContainer}>
-        <Toggle
-          toggleMode={toggleTheme}
-          isNightMode={isDarkMode}
-          //   className={`${styles.toggleButton} ${
-          //     isDarkMode ? styles.dark : styles.light
-          //   } toggleColor`}
-        />
-        {/* {isDarkMode ? <Sun /> : <Moon />}
-        </Toggle> */}
-        <Link to="/settings" className={`${styles.settings} settingsLink`}>
-          <Settings />
+        <Toggle toggleMode={toggleTheme} isNightMode={isDarkMode} />
+
+        {/* Profile Image */}
+        <Link to="/settings">
+          <img src="/p1.jpeg" alt="Profile" className={styles.profileImage} />
         </Link>
-        <div className={`${styles.divider} dividerColor`} />
+
+        {/* Logout Icon */}
+        <button
+          onClick={() => {}}
+          className={`${styles.logoutButton} logOutColor`}
+        >
+          <LogOutIcon />
+        </button>
       </div>
     </div>
   );

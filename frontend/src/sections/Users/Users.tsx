@@ -26,7 +26,7 @@ const columns: GridColDef[] = [
       <div className={styles.profileCell}>
         <div className={styles.profilePicture}>
           <img
-            src={params.row.profilePictureUrl}
+            src={params.row.image}
             alt={params.row.username}
             width={100}
             height={50}
@@ -45,6 +45,18 @@ const columns: GridColDef[] = [
   {
     field: "username",
     headerName: "Username",
+    headerClassName: "dataGridHeaderColor",
+    width: 200,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    headerClassName: "dataGridHeaderColor",
+    width: 150,
+  },
+  {
+    field: "teamId",
+    headerName: "Team Id",
     headerClassName: "dataGridHeaderColor",
     width: 200,
   },
