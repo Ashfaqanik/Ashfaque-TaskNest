@@ -18,16 +18,15 @@ import {
   Calendar,
 } from "lucide-react";
 import { useGetProjectsQuery } from "../../state/api";
-
 import { Link, useLocation } from "react-router-dom";
 import { useSidebar } from "../../context/SidebarContext";
+import { useProject } from "../../context/ProjectContext";
 
 export default function Sidebar() {
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
   const { isSidebarCollapsed, toggleSidebar } = useSidebar();
   const { data: projects } = useGetProjectsQuery();
-  console.log("Sidebar projects:", projects);
 
   return (
     <div
@@ -47,9 +46,8 @@ export default function Sidebar() {
             </button>
           )}
         </div>
-        {/* Divider */}
+
         <hr className={`${styles.divider} dividerColor`} />
-        {/* Navbar Links */}
         <nav className={styles.nav}>
           <SidebarLink icon={Home} label="Home" href="/" />
           <SidebarLink icon={Calendar} label="Timeline" href="/timeline" />
@@ -59,7 +57,6 @@ export default function Sidebar() {
           <SidebarLink icon={Users} label="Teams" href="/teams" />
         </nav>
 
-        {/* Projects Links */}
         {projects?.length !== 0 ? (
           <button
             onClick={() => setShowProjects((prev) => !prev)}
@@ -85,9 +82,11 @@ export default function Sidebar() {
               icon={Briefcase}
               label={project.name}
               href={`/projects/${project.id}`}
+              projectName={project.name}
+              teamId={project.teamId}
             />
           ))}
-        {/* Priority Links */}
+
         <button
           onClick={() => setShowPriority((prev) => !prev)}
           className={`${styles.toggleButton} toggleButtonColor`}
@@ -130,21 +129,33 @@ interface SidebarLinkProps {
   icon: React.ElementType;
   label: string;
   href: string;
+  projectName?: string;
+  teamId?: number;
 }
 
 const SidebarLink: React.FC<SidebarLinkProps> = ({
   href,
   icon: Icon,
   label,
+  projectName,
+  teamId,
 }) => {
   const location = useLocation();
   const isActive =
     location.pathname === href ||
     (location.pathname === "/" && href === "/dashboard");
 
+  const { setProjectName, setTeamId } = useProject();
+
+  const handleClick = () => {
+    if (projectName) setProjectName(projectName);
+    if (teamId) setTeamId(teamId);
+  };
+
   return (
     <Link
       to={href}
+      onClick={handleClick}
       className={`${styles.sidebarLink} sidebarLinkColor ${
         isActive ? "active" : ""
       }`}

@@ -1,6 +1,6 @@
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
-import { Search, Settings, Menu, LogOutIcon } from "lucide-react";
+import { Search, Menu, LogOutIcon } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useSidebar } from "../../context/SidebarContext";
 import Toggle from "../../switch/Toggle.jsx";
@@ -48,7 +48,10 @@ export default function Navbar() {
           onClick={() => {}}
           className={`${styles.logoutButton} logOutColor`}
         >
-          <LogOutIcon />
+          <div className={styles.iconCircle}>
+            <LogOutIcon />
+            {/* <span className={styles.logoutText}>Log Out</span> */}
+          </div>
         </button>
       </div>
     </div>

@@ -20,6 +20,7 @@ model User {
   password String
   image    String?
   teamId   Int?
+  role     String
 
   authoredTasks Task[]    @relation("TaskAuthor")
   assignedTasks Task[]    @relation("TaskAssignee")
@@ -28,30 +29,21 @@ model User {
 }
 
 model Team {
-  id                   Int           @id @default(autoincrement())
+  id                   Int    @id @default(autoincrement())
   teamName             String
   productOwnerUserId   Int?
   projectManagerUserId Int?
-  projectTeams         ProjectTeam[]
   user                 User[]
 }
 
 model Project {
-  id           Int           @id @default(autoincrement())
-  name         String
-  description  String?
-  startDate    DateTime?
-  endDate      DateTime?
-  tasks        Task[]
-  projectTeams ProjectTeam[]
-}
-
-model ProjectTeam {
-  id        Int     @id @default(autoincrement())
-  teamId    Int
-  projectId Int
-  team      Team    @relation(fields: [teamId], references: [id])
-  project   Project @relation(fields: [projectId], references: [id])
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  tasks       Task[]
+  teamId      Int
 }
 
 model Task {

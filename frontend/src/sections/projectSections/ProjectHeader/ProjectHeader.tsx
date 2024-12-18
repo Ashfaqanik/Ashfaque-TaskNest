@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../../components/Header/Header";
 import { useAppSelector } from "../../../store/redux";
+import { useProject } from "../../../context/ProjectContext";
 
 import {
   Clock,
@@ -23,10 +24,13 @@ type Props = {
 const ProjectHeader: React.FC<Props> = ({ activeTab, setActiveTab }: Props) => {
   const [isModalNewProjectOpen, setIsModalNewProjectOpen] =
     useState<boolean>(false);
+
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed
   );
-  console.log(`projectHeader${isSidebarCollapsed}`);
+
+  const { projectName, teamId } = useProject();
+
   return (
     <div
       className={`${styles.projectHeader} ${
@@ -39,7 +43,11 @@ const ProjectHeader: React.FC<Props> = ({ activeTab, setActiveTab }: Props) => {
       />
       <div className={styles.headerContainer}>
         <Header
-          name="Project Development"
+          name={
+            projectName && teamId
+              ? `${projectName} - Team ${teamId}`
+              : "Project Development"
+          }
           buttonComponent={
             <button
               className={`${styles.newBoardButton} button`}

@@ -78,19 +78,8 @@
       border-radius: 0.25rem;
       cursor: pointer;
     }
-    // .divider {
-    //   margin-left: 0.5rem;
-    //   margin-right: 1.25rem;
-    //   display: none;
-    //   min-height: 2em;
-    //   width: 0.1rem;
 
-    //   // Media query for md breakpoint
-    //   @media (min-width: 768px) {
-    //     display: inline-block;
-    //   }
-    // }
-    // DarkModeToggle.module.scss
+    // DarkModeToggle
     .toggleButton {
       width: 10px;
       border: none;
@@ -111,18 +100,33 @@
       border: 2px solid colors.$gray-500;
     }
     .logoutButton {
-      margin-left: 3px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      margin-bottom: 4px;
-      align-items: center;
+      width: 2.3rem;
+      height: 2.3rem;
+      margin-top: 0.3px;
 
-      svg {
-        min-height: min-content;
-        min-width: min-content;
-        transition: color 0.3s ease;
+      font-size: 6px;
+      font-weight: bold;
+      border-radius: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      //transition: all 0.1s ease;
+
+      .iconCircle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 6rem;
+        height: 2.5rem;
+        border-radius: 25%;
+        transition: background-color 0.3s ease;
+
+        svg {
+          width: 20px;
+          height: 20px;
+          transition: color 0.3s ease;
+        }
       }
     }
   }

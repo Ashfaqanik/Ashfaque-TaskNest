@@ -74,7 +74,7 @@
       display: flex;
       width: 100%;
       border: none;
-      font-size: small;
+      font-size: 1rem;
       text-decoration: none;
       align-items: center;
       justify-content: space-between;
@@ -91,11 +91,12 @@
       align-items: center;
       padding: 0.75rem 1rem;
       text-decoration: none;
+      font-size: 1rem;
       //transition: background-color 0.3s ease;
 
       .icon {
         margin-right: 0.5rem;
-        width: 1.5rem;
+        width: 1.3rem;
         height: 1.5rem;
       }
     }

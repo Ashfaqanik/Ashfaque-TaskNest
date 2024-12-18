@@ -18,10 +18,12 @@ export default function ModalNewProject({ isOpen, onClose }: Props) {
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [teamId, setTeamId] = useState<number | null>(null);
+
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
   const handleSubmit = async () => {
-    if (!projectName || !startDate || !endDate) return;
+    if (!projectName || !startDate || !endDate || !teamId) return;
 
     try {
       const formattedStartDate = formatISO(new Date(startDate), {
@@ -35,6 +37,7 @@ export default function ModalNewProject({ isOpen, onClose }: Props) {
         description,
         startDate: formattedStartDate,
         endDate: formattedEndDate,
+        teamId: teamId,
       }).unwrap();
 
       resetForm();
@@ -50,9 +53,10 @@ export default function ModalNewProject({ isOpen, onClose }: Props) {
     setDescription("");
     setStartDate("");
     setEndDate("");
+    setTeamId(null);
   };
   const isFormValid = () => {
-    return projectName && description && startDate && endDate;
+    return projectName && description && startDate && endDate && teamId;
   };
   return (
     <Modal isOpen={isOpen} onClose={onClose} name="Create New Project">
@@ -92,6 +96,13 @@ export default function ModalNewProject({ isOpen, onClose }: Props) {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
+        <input
+          type="number"
+          className={`${styles.inputStyles} ${isDarkMode ? styles.dark : ""}`}
+          placeholder="Team Id"
+          value={teamId || ""}
+          onChange={(e) => setTeamId(Number(e.target.value))}
+        />
         <button
           type="submit"
           className={`${styles.submitButton} ${isDarkMode ? styles.dark : ""} ${

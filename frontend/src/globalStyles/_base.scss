@@ -55,9 +55,11 @@ body.dark,
     }
     .logOutColor {
       color: colors.$gray-800;
-      background-color: colors.$blue-300;
+      background-color: colors.$gray-200;
+      border: 1px solid #898686;
       &:hover {
-        color: colors.$blue-primary;
+        color: colors.$gray-800;
+        background-color: colors.$blue-400;
       }
     }
     // .dividerColor {
@@ -377,11 +379,12 @@ body.dark,
       }
     }
     .logOutColor {
-      color: white;
-      background-color: colors.$gray-800;
+      color: colors.$gray-100;
+      background-color: colors.$dark-bg;
+      border: 1px solid #939292;
       &:hover {
-        //background-color: colors.$dark-bg;
-        color: colors.$dark-secondary;
+        color: colors.$gray-100;
+        background-color: colors.$dark-secondary;
       }
     }
     // .dividerColor {

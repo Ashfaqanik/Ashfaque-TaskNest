@@ -34,6 +34,14 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardProps) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <div
+        style={{
+          marginTop: "1rem",
+          color: "#223344",
+        }}
+      >
+        Project
+      </div>
       <div className={styles.grid}>
         {taskStatus.map((status) => (
           <TaskColumn

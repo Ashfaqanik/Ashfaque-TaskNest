@@ -24,6 +24,7 @@ const Project: React.FC = () => {
         id={id}
       />
       <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+
       {activeTab === "Board" && (
         <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
