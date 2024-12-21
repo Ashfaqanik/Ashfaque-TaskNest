@@ -65,6 +65,12 @@ export interface Team {
   productOwnerUserId?: number;
   projectManagerUserId?: number;
 }
+export interface Comment {
+  id: number;
+  text: string;
+  taskId?: number;
+  userId?: number;
+}
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -132,6 +138,14 @@ export const api = createApi({
           ? result.map(({ id }) => ({ type: "Tasks", id }))
           : [{ type: "Tasks", id: userId }],
     }),
+    postComment: build.mutation<Comment, Partial<Comment>>({
+      query: (newComment) => ({
+        url: `tasks/${newComment.taskId}/comments`,
+        method: "POST",
+        body: newComment,
+      }),
+      invalidatesTags: ["Tasks"],
+    }),
   }),
 });
 export const {
@@ -144,4 +158,5 @@ export const {
   useGetUsersQuery,
   useGetTeamsQuery,
   useGetTasksByUserQuery,
+  usePostCommentMutation,
 } = api;

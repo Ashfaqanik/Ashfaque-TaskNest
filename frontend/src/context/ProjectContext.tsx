@@ -20,7 +20,7 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({
   const projectName = useAppSelector((state) => state.global.projectName);
   const teamId = useAppSelector((state) => state.global.teamId);
 
-  // Handlers accept new values and dispatch them
+  // Handlers to accept new values and dispatch them
   const setProjectNameHandler = (name: string) => {
     dispatch(setProjectName(name));
   };

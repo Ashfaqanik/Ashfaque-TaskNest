@@ -112,3 +112,23 @@ export const getUserTasks = async (
       .json({ message: `Error retrieving user's tasks: ${error.message}` });
   }
 };
+export const postComment = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { text, taskId, userId } = req.body;
+  try {
+    const newComment = await prisma.comment.create({
+      data: {
+        text,
+        taskId,
+        userId,
+      },
+    });
+    res.status(201).json(newComment);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error posting comment: ${error.message}` });
+  }
+};

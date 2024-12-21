@@ -7,16 +7,16 @@
   padding: 10px;
   overflow: scroll;
   color: #000;
-  margin-top: 16.5rem;
+  margin-top: 14.5rem;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 13.5rem;
+    margin-top: 11rem;
   }
 
   @media (min-width: 1280px) {
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 13.5rem;
+    margin-top: 12.5rem;
   }
 }
 
@@ -90,6 +90,8 @@
 .taskTags {
   display: flex;
   gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
 
   .priority {
     border-radius: 9999px;
@@ -161,26 +163,18 @@
 
 .taskFooter {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-top: 1rem;
   border-top: 1px solid #e5e7eb;
   padding-top: 1rem;
 
-  .taskUsers {
-    display: flex;
-
-    .taskUser {
-      border-radius: 50%;
-      border: 2px solid #fff;
-      margin-right: -0.375rem;
-    }
-  }
-
   .taskComments {
+    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 0.25rem;
     font-size: 0.875rem;
+    cursor: pointer;
   }
 }

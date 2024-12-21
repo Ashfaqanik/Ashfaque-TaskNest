@@ -1,7 +1,9 @@
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { format } from "date-fns";
+import CommentModal from "../../../components/CommentModel/CommentModel";
 import {
+  Comment,
   Task as TaskType,
   useGetTasksQuery,
   useUpdateTaskStatusMutation,
@@ -9,6 +11,7 @@ import {
 
 import { MessageSquareMore, Plus } from "lucide-react";
 import styles from "./BoardView.module.scss";
+import { useEffect, useState } from "react";
 
 type BoardProps = {
   id: string;
@@ -133,17 +136,19 @@ const Task = ({ task }: TaskProps) => {
     ? format(new Date(task.dueDate), "P")
     : "";
 
-  const numberOfComments = (task.comments && task.comments.length) || 0;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [comments, setComments] = useState<string[]>(
+    task?.comments?.map((comment) => comment.text) || []
+  );
 
   return (
     <div
       ref={drag}
       className={`${styles.task} taskBox ${isDragging ? styles.dragging : ""}`}
     >
-      {task.image !== null && (
+      {task.image && (
         <img
           src={`${task.image}`}
-          //alt={task.title}
           width={300}
           height={150}
           className={styles.taskImage}
@@ -167,18 +172,10 @@ const Task = ({ task }: TaskProps) => {
               </div>
             ))}
           </div>
-          {/* <button className={`${styles.taskMenu} taskMenuColor`}>
-            <EllipsisVertical size={26} />
-          </button> */}
         </div>
 
         <div className={styles.taskTitle}>
           <h4>{task.title}</h4>
-          {typeof task.points === "number" && (
-            <span className={`${styles.taskPoints} taskPointsColor`}>
-              {task.points} pts
-            </span>
-          )}
         </div>
 
         <div className={`${styles.taskDates} taskDatesColor`}>
@@ -190,32 +187,29 @@ const Task = ({ task }: TaskProps) => {
         </p>
 
         <div className={styles.taskFooter}>
-          <div className={styles.taskUsers}>
-            {task.assignee && (
-              <img
-                src={`${task.assignee.image!}`}
-                alt={task.assignee.username}
-                width={30}
-                height={30}
-                className={styles.taskUser}
-              />
-            )}
-            {task.author && (
-              <img
-                src={`${task.author.image!}`}
-                alt={task.author.username}
-                width={30}
-                height={30}
-                className={styles.taskUser}
-              />
-            )}
-          </div>
-          <div className={`${styles.taskComments} taskComments`}>
+          <div
+            className={`${styles.taskComments} taskComments`}
+            onClick={() => setIsModalOpen(true)}
+            //style={{ cursor: "pointer" }}
+          >
             <MessageSquareMore size={20} />
-            <span>{numberOfComments}</span>
+            <span>{comments.length}</span>
           </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <CommentModal
+          taskName={task.title}
+          taskId={task.id}
+          projectId={task.projectId}
+          userId={1}
+          onClose={() => setIsModalOpen(false)}
+          onCommentPosted={(newText) =>
+            setComments((text) => [...text, newText])
+          }
+        />
+      )}
     </div>
   );
 };
