@@ -13,7 +13,7 @@ import { useGetProfileQuery } from "../../state/api.js";
 export default function Navbar() {
   const { isDarkMode, toggleTheme } = useTheme();
   const { isSidebarCollapsed, toggleSidebar } = useSidebar();
-  const { data: user, isLoading, isError } = useGetProfileQuery();
+  const { data: user } = useGetProfileQuery();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -59,12 +59,8 @@ export default function Navbar() {
         {/* Profile Image */}
         <Link to="/settings">
           <img
-            src={
-              user && user?.image === ""
-                ? "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp"
-                : user?.image
-            }
-            alt="Profile"
+            src={user && user?.image === "" ? "/default.png" : user?.image}
+            alt=""
             className={styles.profileImage}
           />
         </Link>

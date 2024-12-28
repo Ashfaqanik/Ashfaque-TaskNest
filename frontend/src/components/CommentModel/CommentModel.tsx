@@ -46,6 +46,8 @@ const CommentModal = ({
         text,
         taskId,
         userId,
+        userName,
+        image,
       }).unwrap();
 
       setText("");
@@ -105,18 +107,34 @@ const CommentModal = ({
                 <div className={styles.commentContainer}>
                   {comment.userId !== userId && (
                     <img
-                      src={"/p1.jpeg"}
-                      alt={"user"}
+                      src={
+                        comment.image === ""
+                          ? "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp"
+                          : comment.image
+                      }
+                      alt={comment.userName}
                       className={styles.userImage}
                     />
                   )}
                   <div className={styles.commentText}>
-                    <span className={styles.userName}>{"user"}</span>
+                    <span
+                      className={`${
+                        comment.userId !== userId
+                          ? styles.userName
+                          : styles.myName
+                      }`}
+                    >
+                      {comment.userName}
+                    </span>
                     <p>{comment.text}</p>
                   </div>
                   {comment.userId === userId && (
                     <img
-                      src={`/p1.jpeg`}
+                      src={
+                        comment.image === ""
+                          ? "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp"
+                          : comment.image
+                      }
                       alt={"user"}
                       className={styles.userImage}
                     />

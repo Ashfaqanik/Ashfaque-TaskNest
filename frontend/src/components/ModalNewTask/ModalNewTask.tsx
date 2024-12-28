@@ -210,9 +210,9 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
           <button
             type="submit"
             className={`${`${styles.formButton} modalContainerFormButtonColor`} ${
-              (!isFormValid() || isLoading) && styles.disabled
+              (!isFormValid() || isLoading || !imageUrl) && styles.disabled
             }`}
-            disabled={!isFormValid() || isLoading}
+            disabled={!isFormValid() || isLoading || !imageUrl}
           >
             {isLoading ? "Creating..." : "Create Task"}
           </button>

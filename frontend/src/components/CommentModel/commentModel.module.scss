@@ -51,6 +51,7 @@
 }
 
 .commentsList {
+  margin-top: 5px;
   max-height: 300px;
   overflow-y: auto;
   display: flex;
@@ -59,7 +60,7 @@
   .comment,
   .myComment {
     margin-bottom: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.4rem;
     max-width: 70%;
     border-radius: 1.5rem;
     word-wrap: break-word;
@@ -100,6 +101,15 @@
         color: #837c7c;
         opacity: 1.2;
         margin-bottom: 0.2rem;
+      }
+      .myName {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #837c7c;
+        opacity: 1.2;
+        margin-bottom: 0.2rem;
+        align-self: flex-end;
+        flex-direction: row-reverse;
       }
 
       p {

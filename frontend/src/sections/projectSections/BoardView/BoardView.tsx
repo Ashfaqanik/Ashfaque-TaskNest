@@ -193,7 +193,11 @@ const Task = ({ task }: TaskProps) => {
             {task.assignee && (
               <img
                 key={task.assignee.userId}
-                src={task.assignee.image}
+                src={
+                  task.assignee.image === ""
+                    ? "/default.png"
+                    : task.assignee.image
+                }
                 alt={task.assignee.username}
                 width={30}
                 height={30}
@@ -203,7 +207,9 @@ const Task = ({ task }: TaskProps) => {
             {task.author && (
               <img
                 key={task.author.userId}
-                src={task.author.image}
+                src={
+                  task.author.image === "" ? "/default.png" : task.author.image
+                }
                 alt={task.author.username}
                 width={30}
                 height={30}

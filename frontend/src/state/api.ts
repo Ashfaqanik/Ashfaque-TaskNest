@@ -71,13 +71,20 @@ export interface Comment {
   text: string;
   taskId?: number;
   userId?: number;
-  username?: string;
+  userName?: string;
   image?: string;
 }
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_PUBLIC_API_BASE_URL,
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   reducerPath: "api",
   tagTypes: ["Projects", "Tasks", "Users", "Profile", "Teams"],

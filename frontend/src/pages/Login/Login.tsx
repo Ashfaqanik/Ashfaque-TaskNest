@@ -4,7 +4,6 @@ import styles from "./Login.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 import { setIsLoggedIn } from "../../state/globalReducer";
 
 const Login: React.FC = () => {
@@ -13,7 +12,6 @@ const Login: React.FC = () => {
 
   const [login, { isLoading }] = useLoginMutation();
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,7 +27,7 @@ const Login: React.FC = () => {
         autoClose: 3000,
       });
 
-      navigate("/");
+      window.location.replace("/");
       console.log("User token:", response.token, response.id);
     } catch (err: any) {
       console.log(err.data?.message || "Invalid credentials.");
