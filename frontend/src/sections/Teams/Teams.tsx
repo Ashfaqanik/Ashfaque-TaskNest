@@ -10,6 +10,8 @@ import {
   GridToolbarExport,
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
+import { useState } from "react";
+import ModalNewTeam from "../../components/ModalNewTeam/ModalNewTeam";
 
 const CustomToolbar = () => (
   <GridToolbarContainer className={`${styles.toolbar} usersToolbarColor`}>
@@ -48,13 +50,30 @@ const columns: GridColDef[] = [
 const Teams = () => {
   const { data: teams, isLoading, isError } = useGetTeamsQuery();
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const [isModalNewTeamOpen, setIsModalNewTeamOpen] = useState(false);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError || !teams) return <div>Error fetching teams</div>;
 
   return (
     <div className={styles.teamsContainer}>
-      <Header name="Teams" />
+      <ModalNewTeam
+        isOpen={isModalNewTeamOpen}
+        onClose={() => setIsModalNewTeamOpen(false)}
+      />
+      <Header
+        name="Teams"
+        buttonComponent={
+          <button
+            className={`${styles.addButton} roundButton`}
+            onClick={() => {
+              setIsModalNewTeamOpen(true);
+            }}
+          >
+            +
+          </button>
+        }
+      />
       <div className={styles.gridContainer}>
         <DataGrid
           rows={teams || []}

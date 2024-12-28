@@ -4,7 +4,12 @@ import { useAppSelector } from "../../../store/redux";
 import Header from "../../../components/Header/Header";
 import ModalNewTask from "../../../components/ModalNewTask/ModalNewTask";
 import TaskCard from "../../../components/TaskCard/TaskCard";
-import { Priority, Task, useGetTasksByUserQuery } from "../../../state/api";
+import {
+  Priority,
+  Task,
+  useGetProfileQuery,
+  useGetTasksByUserQuery,
+} from "../../../state/api";
 import styles from "./PrioritiesPage.module.scss";
 
 type Props = {
@@ -80,8 +85,8 @@ const PrioritiesPage = ({ priority, headerName }: Props) => {
   const [view, setView] = useState("list");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
-  //   const { data: currentUser } = useGetAuthUserQuery({});
-  const userId = 1; //currentUser?.userDetails?.userId ?? null;
+  const { data: currentUser } = useGetProfileQuery();
+  const userId = currentUser?.userId ?? null;
   const {
     data: tasks,
     isLoading,

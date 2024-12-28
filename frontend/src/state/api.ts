@@ -78,17 +78,6 @@ export interface Comment {
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_PUBLIC_API_BASE_URL,
-    // prepareHeaders: (headers) => {
-    //   const token = localStorage.getItem("token"); // Retrieving the token from localStorage
-    //   const id = localStorage.getItem("id");
-    //   if (token) {
-    //     headers.set("Authorization", `Bearer ${token}`);
-    //   }
-    //   if (id) {
-    //     headers.set("id", id);
-    //   }
-    //   return headers;
-    // },
   }),
   reducerPath: "api",
   tagTypes: ["Projects", "Tasks", "Users", "Profile", "Teams"],
@@ -159,6 +148,14 @@ export const api = createApi({
       query: () => "teams",
       providesTags: ["Teams"],
     }),
+    createTeam: build.mutation<Team, Partial<Team>>({
+      query: (newTeam) => ({
+        url: "teams",
+        method: "POST",
+        body: newTeam,
+      }),
+      invalidatesTags: ["Teams"],
+    }),
     getTasksByUser: build.query<Task[], number>({
       query: (userId) => `tasks/user/${userId}`,
       providesTags: (result, error, userId) =>
@@ -220,6 +217,7 @@ export const {
   useGetUsersQuery,
   useGetProfileQuery,
   useGetTeamsQuery,
+  useCreateTeamMutation,
   useGetTasksByUserQuery,
   usePostCommentMutation,
   useCreateUserMutation,

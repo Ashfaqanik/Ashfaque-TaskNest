@@ -40,6 +40,10 @@ const Timeline = () => {
   if (isError || !projects)
     return <div>An error occurred while fetching projects</div>;
 
+  if (ganttTasks.length === 0) {
+    return <div>No tasks available to display.</div>;
+  }
+
   return (
     <div className={`${styles.timelineContainer} timeline`}>
       <header className={styles.header}>
