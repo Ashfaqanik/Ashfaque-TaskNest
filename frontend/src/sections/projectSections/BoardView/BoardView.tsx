@@ -3,15 +3,15 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { format } from "date-fns";
 import CommentModal from "../../../components/CommentModel/CommentModel";
 import {
-  Comment,
   Task as TaskType,
+  useGetProfileQuery,
   useGetTasksQuery,
   useUpdateTaskStatusMutation,
 } from "../../../state/api";
 
 import { MessageSquareMore, Plus } from "lucide-react";
 import styles from "./BoardView.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type BoardProps = {
   id: string;
@@ -127,6 +127,8 @@ const Task = ({ task }: TaskProps) => {
     collect: (monitor: any) => ({ isDragging: !!monitor.isDragging() }),
   }));
 
+  const { data: user, isLoading, isError } = useGetProfileQuery();
+
   const taskTagsSplit = task.tags ? task.tags.split(",") : [];
 
   const formattedStartDate = task.startDate
@@ -187,10 +189,31 @@ const Task = ({ task }: TaskProps) => {
         </p>
 
         <div className={styles.taskFooter}>
+          <div className={styles.taskUsers}>
+            {task.assignee && (
+              <img
+                key={task.assignee.userId}
+                src={task.assignee.image}
+                alt={task.assignee.username}
+                width={30}
+                height={30}
+                className={styles.picture}
+              />
+            )}
+            {task.author && (
+              <img
+                key={task.author.userId}
+                src={task.author.image}
+                alt={task.author.username}
+                width={30}
+                height={30}
+                className={styles.picture}
+              />
+            )}
+          </div>
           <div
             className={`${styles.taskComments} taskComments`}
             onClick={() => setIsModalOpen(true)}
-            //style={{ cursor: "pointer" }}
           >
             <MessageSquareMore size={20} />
             <span>{comments.length}</span>
@@ -198,12 +221,14 @@ const Task = ({ task }: TaskProps) => {
         </div>
       </div>
 
-      {isModalOpen && (
+      {user && isModalOpen && (
         <CommentModal
           taskName={task.title}
           taskId={task.id}
           projectId={task.projectId}
-          userId={1}
+          userId={user?.userId}
+          userName={user?.username}
+          image={user?.image}
           onClose={() => setIsModalOpen(false)}
           onCommentPosted={(newText) =>
             setComments((text) => [...text, newText])

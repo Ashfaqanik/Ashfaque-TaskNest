@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardWrapper from "./sections/DashboardWrapper/DashboardWrapper";
 import { SidebarProvider } from "./context/SidebarContext.tsx";
-import { useAppSelector } from "./store/redux.tsx";
+import { useAppDispatch, useAppSelector } from "./store/redux.tsx";
 import { ToastContainer } from "react-toastify";
 import { ProjectProvider } from "./context/ProjectContext.tsx";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import { setIsLoggedIn } from "./state/globalReducer.ts";
+import SignUp from "./pages/Register/Register";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const metadata = {
   title: "Ashfaque TaskNest",
   description: "A react task management app",
 };
+const isTokenExpired = (token: string) => {
+  try {
+    const decoded: { exp: number } = jwtDecode(token);
+    return Date.now() >= decoded.exp * 1000;
+  } catch (error) {
+    return true;
+  }
+};
+
 function App() {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.global.isLoggedIn);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const root = document.documentElement;
@@ -27,14 +45,34 @@ function App() {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("id");
+
+    if (token && userId && !isTokenExpired(token)) {
+      dispatch(setIsLoggedIn(true));
+    } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      dispatch(setIsLoggedIn(false));
+    }
+  }, [dispatch]);
   return (
     <div>
       <ToastContainer position="top-right" autoClose={3000} />
-      <SidebarProvider>
-        <ProjectProvider>
-          <DashboardWrapper />
-        </ProjectProvider>
-      </SidebarProvider>
+      {isLoggedIn === false ? (
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      ) : (
+        <SidebarProvider>
+          <ProjectProvider>
+            <DashboardWrapper />
+          </ProjectProvider>
+        </SidebarProvider>
+      )}
     </div>
   );
 }

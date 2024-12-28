@@ -1,11 +1,19 @@
-import { getUser, getUsers } from "../controllers/userController";
+import {
+  getUser,
+  getUsers,
+  registerUser,
+  loginUser,
+  updateUser,
+} from "../controllers/userController";
 import { Router } from "express";
+import { authenticateToken } from "./auth";
 
 const router = Router();
 
-//router.post("register", upload.single("image"), createUser);
-//router.post("/login", loginUser);
-router.get("/:userId", getUser);
-router.get("/users", getUsers);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/profile/:id", authenticateToken, getUser);
+router.get("/", getUsers);
+router.patch("/update/:id", authenticateToken, updateUser);
 
 export default router;

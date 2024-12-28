@@ -1,33 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import styles from "./Settings.module.scss";
 import { useAppSelector } from "../../store/redux";
 import axios from "axios";
-import { Camera, Eye, EyeClosed } from "lucide-react";
+import { Camera } from "lucide-react";
+import { useGetProfileQuery, useUpdateUserMutation } from "../../state/api";
 
 const Settings = () => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const { data: user, isLoading, isError } = useGetProfileQuery();
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
-  const [userSettings, setUserSettings] = useState({
-    username: "johndoe",
-    email: "john.doe@example.com",
-    teamId: 1,
-    roleName: "Developer",
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    teamId: 0,
+    roleName: "",
     profileImage: "",
   });
 
-  const [formData, setFormData] = useState({
-    username: userSettings.username,
-    email: userSettings.email,
-    teamId: userSettings.teamId,
-    roleName: userSettings.roleName,
-    password: "123456",
-  });
-
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>("/p1.jpeg");
+  const [imagePreview, setImagePreview] = useState<string>("");
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        username: user.username || "",
+        email: user.email || "",
+        teamId: user.teamId || 0,
+        roleName: user.role || "",
+        profileImage:
+          user.image ||
+          "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp",
+      });
+      setImagePreview(
+        user.image ||
+          "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp"
+      );
+    }
+  }, [user]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError || !user)
+    return <div>An error occurred while fetching user data.</div>;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,8 +61,9 @@ const Settings = () => {
   };
 
   const handleUpdate = async () => {
-    let uploadedImageUrl = userSettings.profileImage;
+    let uploadedImageUrl = formData.profileImage;
 
+    // UploadING image to Cloudinary if a new file is selected
     if (imageFile) {
       const imageFormData = new FormData();
       imageFormData.append("file", imageFile);
@@ -66,20 +82,29 @@ const Settings = () => {
       }
     }
 
-    // Update user settings
-    setUserSettings({
-      ...formData,
-      profileImage: uploadedImageUrl,
-    });
+    try {
+      await updateUser({
+        data: {
+          username: formData.username,
+          email: formData.email,
+          teamId: formData.teamId,
+          image: uploadedImageUrl,
+          role: formData.roleName,
+        },
+      }).unwrap();
 
-    alert("Profile updated successfully!");
+      alert("Profile updated successfully!");
+    } catch (error) {
+      console.error("Failed to update user:", error);
+      alert("Failed to update profile. Please try again.");
+    }
   };
 
   return (
     <div className={styles.settingsContainer}>
       <Header name="Settings" />
       <div className={styles.formContainer}>
-        {/* Profile Image */}
+        {/* Image */}
         <div className={styles.imageContainer}>
           <label htmlFor="profileImage" className={styles.imageLabel}>
             <img
@@ -102,7 +127,7 @@ const Settings = () => {
           />
         </div>
 
-        {/* Form Fields */}
+        {/* Username Field */}
         <div>
           <label
             className={`${styles.labelStyle} ${isDarkMode ? styles.dark : ""}`}
@@ -117,6 +142,8 @@ const Settings = () => {
             className={`${styles.input} ${isDarkMode ? styles.dark : ""}`}
           />
         </div>
+
+        {/* Email Field */}
         <div>
           <label
             className={`${styles.labelStyle} ${isDarkMode ? styles.dark : ""}`}
@@ -131,11 +158,13 @@ const Settings = () => {
             className={`${styles.input} ${isDarkMode ? styles.dark : ""}`}
           />
         </div>
+
+        {/* Team ID Field */}
         <div>
           <label
             className={`${styles.labelStyle} ${isDarkMode ? styles.dark : ""}`}
           >
-            Team Id
+            Team ID
           </label>
           <input
             type="text"
@@ -145,6 +174,8 @@ const Settings = () => {
             className={`${styles.input} ${isDarkMode ? styles.dark : ""}`}
           />
         </div>
+
+        {/* Role Field */}
         <div>
           <label
             className={`${styles.labelStyle} ${isDarkMode ? styles.dark : ""}`}
@@ -160,33 +191,13 @@ const Settings = () => {
           />
         </div>
 
-        {/* Password Field */}
-        <div>
-          <label
-            className={`${styles.labelStyle} ${isDarkMode ? styles.dark : ""}`}
-          >
-            Password
-          </label>
-          <div className={styles.passwordContainer}>
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className={`${styles.input} ${isDarkMode ? styles.dark : ""}`}
-            />
-            <div
-              className={styles.passwordToggle}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
-            </div>
-          </div>
-        </div>
-
         {/* Update Button */}
-        <button onClick={handleUpdate} className={styles.updateButton}>
-          Update Profile
+        <button
+          onClick={handleUpdate}
+          className={styles.updateButton}
+          disabled={isUpdating}
+        >
+          {isUpdating ? "Updating..." : "Update Profile"}
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface initialStateTypes {
+  isLoggedIn: boolean;
   isSidebarCollapsed: boolean;
   isDarkMode: boolean;
   projectName: string;
@@ -8,6 +9,7 @@ export interface initialStateTypes {
 }
 
 const initialState: initialStateTypes = {
+  isLoggedIn: false,
   isSidebarCollapsed: true,
   isDarkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
   projectName: "",
@@ -18,6 +20,9 @@ export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
+    setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
+    },
     setIsSidebarCollapsed: (state, action: PayloadAction<boolean>) => {
       state.isSidebarCollapsed = action.payload;
     },
@@ -34,6 +39,7 @@ export const globalSlice = createSlice({
 });
 
 export const {
+  setIsLoggedIn,
   setIsSidebarCollapsed,
   setIsDarkMode,
   setProjectName,

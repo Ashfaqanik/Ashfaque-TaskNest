@@ -70,6 +70,7 @@ export const updateTaskStatus = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  const { id } = req.headers;
   const { taskId } = req.params;
   const { status } = req.body;
   try {
@@ -116,13 +117,15 @@ export const postComment = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { text, taskId, userId } = req.body;
+  const { text, taskId, userId, userName, image } = req.body;
   try {
     const newComment = await prisma.comment.create({
       data: {
         text,
         taskId,
         userId,
+        userName,
+        image,
       },
     });
     res.status(201).json(newComment);

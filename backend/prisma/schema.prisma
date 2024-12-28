@@ -72,6 +72,8 @@ model Comment {
   text   String
   taskId Int
   userId Int
+  userName String
+  image String
 
   task Task @relation(fields: [taskId], references: [id])
   user User @relation(fields: [userId], references: [userId])

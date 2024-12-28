@@ -1,0 +1,65 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+
+  .loginForm {
+    padding: 3.2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 28rem;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.3rem;
+    h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .roundedImage {
+      width: 14rem;
+      height: 12rem;
+      border-radius: 50%;
+      margin: 0 auto;
+      //display: block;
+    }
+
+    input {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .switchPrompt {
+      margin: 3px 0;
+      font-size: 0.9rem;
+      text-align: center;
+
+      a {
+        color: #327dd2;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+  }
+}

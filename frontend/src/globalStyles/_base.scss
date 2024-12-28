@@ -363,6 +363,9 @@ body.dark,
     .closeButton {
       color: colors.$gray-800;
     }
+    .borderColor {
+      border: 0.01px solid colors.$gray-400;
+    }
     .comment {
       background: colors.$blue-50;
     }
@@ -719,6 +722,9 @@ body.dark,
     }
     .closeButton {
       color: colors.$gray-200;
+    }
+    .borderColor {
+      border: 0.01px solid colors.$gray-500;
     }
     .comment {
       background: colors.$dark-tertiary;

@@ -67,7 +67,7 @@ const Users = () => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
   if (isLoading) return <div>Loading...</div>;
   if (isError || !users)
-    return <div>An error occurred while fetching projects</div>;
+    return <div>An error occurred while fetching users</div>;
 
   return (
     <div className={styles.usersContainer}>
