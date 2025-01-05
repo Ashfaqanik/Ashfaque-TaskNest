@@ -133,6 +133,24 @@ export const api = createApi({
     searchResults: build.query<SearchResults, string>({
       query: (query) => `search?query=${query}`,
     }),
+    searchProject: build.query<Project, string>({
+      query: (query) => `projects/search?query=${query}`,
+    }),
+    searchTasksResults: build.query<
+      Task[],
+      { projectId: number; query: string }
+    >({
+      query: ({ projectId, query }) =>
+        `tasks/search?projectId=${projectId}&query=${query}`,
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ id }) => ({ type: "Tasks" as const, id })),
+              { type: "Tasks" as const },
+            ]
+          : [{ type: "Tasks" as const }];
+      },
+    }),
     getUsers: build.query<User[], void>({
       query: () => "users",
       providesTags: ["Users"],
@@ -170,6 +188,21 @@ export const api = createApi({
           ? result.map(({ id }) => ({ type: "Tasks", id }))
           : [{ type: "Tasks", id: userId }],
     }),
+    getTasksByPriority: build.query<
+      Task[],
+      { projectId: number; priority: string }
+    >({
+      query: ({ projectId, priority }) =>
+        `tasks/priority?projectId=${projectId}&priority=${priority}`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Tasks" as const, id })),
+              { type: "Tasks" as const },
+            ]
+          : [{ type: "Tasks" as const }],
+    }),
+
     postComment: build.mutation<Comment, Partial<Comment>>({
       query: (newComment) => ({
         url: `tasks/${newComment.taskId}/comments`,
@@ -230,4 +263,7 @@ export const {
   useCreateUserMutation,
   useLoginMutation,
   useUpdateUserMutation,
+  useGetTasksByPriorityQuery,
+  useSearchTasksResultsQuery,
+  useSearchProjectQuery,
 } = api;

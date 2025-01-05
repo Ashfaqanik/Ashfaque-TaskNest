@@ -39,6 +39,8 @@
   }
   .resultsContainer {
     margin-top: 2rem;
+    height: 30%;
+    width: 40%;
   }
 
   .results {
@@ -58,5 +60,19 @@
     font-size: 1rem;
     color: #555;
     text-align: center;
+  }
+  .emptyText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    font-size: 1.5rem;
+    color: #888;
+  }
+  .expanded {
+    width: 80vw;
+  }
+  .collapsed {
+    width: 100vw;
   }
 }

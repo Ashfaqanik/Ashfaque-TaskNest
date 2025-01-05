@@ -36,3 +36,23 @@ export const createProject = async (
       .json({ message: `Error creating a project: ${error.message}` });
   }
 };
+
+export const searchProject = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { query } = req.query;
+  try {
+    const project = await prisma.project.findMany({
+      where: {
+        name: { equals: query as string, mode: "insensitive" },
+      },
+    });
+
+    res.json(project);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error performing search: ${error.message}` });
+  }
+};

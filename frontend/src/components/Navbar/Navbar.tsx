@@ -8,7 +8,9 @@ import { useAppDispatch } from "../../store/redux.js";
 import { setIsLoggedIn } from "../../state/globalReducer.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useGetProfileQuery } from "../../state/api.js";
+import { useGetProfileQuery, useSearchProjectQuery } from "../../state/api.js";
+import { useEffect, useState } from "react";
+import { useProject } from "../../context/ProjectContext.js";
 
 export default function Navbar() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -16,6 +18,9 @@ export default function Navbar() {
   const { data: user } = useGetProfileQuery();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const { setProjectName, setTeamId } = useProject();
+  const [enterPressed, setEnterPressed] = useState(false);
 
   const onLogoutHandler = () => {
     dispatch(setIsLoggedIn(false));
@@ -26,6 +31,41 @@ export default function Navbar() {
     });
     navigate("/login");
   };
+  const { data: project, isLoading } = useSearchProjectQuery(searchQuery, {
+    skip: !searchQuery,
+  });
+
+  const handleEnterKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      const query = (event.target as HTMLInputElement).value.trim();
+
+      if (query) {
+        setSearchQuery(query);
+        setEnterPressed(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (enterPressed) {
+      if (searchQuery !== "") {
+        if (Array.isArray(project) && project.length > 0) {
+          setProjectName(project[0].name);
+          setTeamId(project[0].teamId);
+          setEnterPressed(false);
+          setSearchQuery("");
+          navigate(`/projects/${project[0].id}`);
+        } else if (!isLoading) {
+          toast.error("No Project found!", {
+            autoClose: 3000,
+          });
+          setEnterPressed(false);
+        }
+      }
+    }
+  }, [handleEnterKeyPress, enterPressed, isLoading]);
 
   return (
     <div className={`${styles.navbar} nav text`}>
@@ -44,12 +84,13 @@ export default function Navbar() {
             !isSidebarCollapsed ? styles.expanded : styles.collapsed
           }`}
         >
-          <Search className={styles.searchIcon} />
           <input
             className={`${styles.searchInput} searchBox`}
             type="search"
-            placeholder="Search..."
+            placeholder="Search Project..."
+            onKeyDown={(event) => handleEnterKeyPress(event)}
           />
+          <Search className={styles.searchIcon} />
         </div>
       </div>
       {/* Icons */}

@@ -7,9 +7,12 @@ import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import styles from "./SearchPage.module.scss";
+import { useSidebar } from "../../context/SidebarContext";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const { isSidebarCollapsed } = useSidebar();
+
   const {
     data: searchResults,
     isLoading,
@@ -28,6 +31,9 @@ const SearchPage = () => {
   useEffect(() => {
     return handleSearch.cancel;
   }, [handleSearch]);
+
+  const displayResults =
+    searchTerm.length >= 3 && !isLoading && !isError && searchResults;
 
   return (
     <div className={styles.container}>
@@ -48,7 +54,7 @@ const SearchPage = () => {
             Error occurred while fetching search results.
           </p>
         )}
-        {!isLoading && !isError && searchResults && (
+        {!isLoading && !isError && searchResults && displayResults && (
           <div className={styles.results}>
             {searchResults.tasks && searchResults.tasks?.length > 0 && (
               <h2 className={`${styles.sectionTitle} searchResultsTitle`}>
@@ -73,6 +79,15 @@ const SearchPage = () => {
               <UserCard key={user.userId} user={user} />
             ))}
           </div>
+        )}
+        {!displayResults && searchTerm.length < 3 && (
+          <p
+            className={`${styles.emptyText} ${
+              !isSidebarCollapsed ? styles.expanded : styles.collapsed
+            }`}
+          >
+            Start typing to search...
+          </p>
         )}
       </div>
     </div>

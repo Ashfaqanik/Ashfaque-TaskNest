@@ -5,7 +5,9 @@ import CommentModal from "../../../components/CommentModel/CommentModel";
 import {
   Task as TaskType,
   useGetProfileQuery,
+  useGetTasksByPriorityQuery,
   useGetTasksQuery,
+  useSearchTasksResultsQuery,
   useUpdateTaskStatusMutation,
 } from "../../../state/api";
 
@@ -16,11 +18,18 @@ import { useState } from "react";
 type BoardProps = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
+  priority?: string;
+  query?: string;
 };
 
 const taskStatus = ["To Do", "Work In Progress", "Under Review", "Completed"];
 
-const BoardView = ({ id, setIsModalNewTaskOpen }: BoardProps) => {
+const BoardView = ({
+  id,
+  setIsModalNewTaskOpen,
+  priority = "",
+  query = "",
+}: BoardProps) => {
   const {
     data: tasks,
     isLoading,
@@ -32,8 +41,48 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardProps) => {
     updateTaskStatus({ taskId, status: toStatus });
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred while fetching tasks</div>;
+  const {
+    data: priorityTasks,
+    error: priorityTasksError,
+    isLoading: isPriorityTasksLoading,
+  } = useGetTasksByPriorityQuery(
+    {
+      projectId: Number(id),
+      priority,
+    },
+    {
+      skip: priority === "",
+    }
+  );
+  const {
+    data: searchTasks,
+    error: searchTasksError,
+    isLoading: isSearchTasksLoading,
+  } = useSearchTasksResultsQuery(
+    {
+      projectId: Number(id),
+      query,
+    },
+    {
+      skip: query === "",
+    }
+  );
+  const displayTasks =
+    priority !== "" ? priorityTasks : query !== "" ? searchTasks : tasks;
+
+  if (priority === "" && isLoading) return <div>Loading...</div>;
+  if (priority !== "" && isPriorityTasksLoading) return <div>Loading...</div>;
+  if (query !== "" && isSearchTasksLoading) return <div>Loading...</div>;
+
+  if (priority === "" && query === "" && error) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (priority !== "" && priorityTasksError) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (query !== "" && searchTasksError) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -50,7 +99,7 @@ const BoardView = ({ id, setIsModalNewTaskOpen }: BoardProps) => {
           <TaskColumn
             key={status}
             status={status}
-            tasks={tasks || []}
+            tasks={displayTasks || []}
             moveTask={moveTask}
             setIsModalNewTaskOpen={setIsModalNewTaskOpen}
           />
@@ -102,9 +151,6 @@ const TaskColumn = ({
           >
             <Plus size={20} />
           </button>
-          {/* <button className="columnActionsButton">
-            <EllipsisVertical size={20} />
-          </button> */}
         </div>
       </div>
       {tasks

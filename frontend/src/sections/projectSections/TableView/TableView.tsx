@@ -1,6 +1,10 @@
 import React from "react";
 import Header from "../../../components/Header/Header";
-import { useGetTasksQuery } from "../../../state/api";
+import {
+  useGetTasksByPriorityQuery,
+  useGetTasksQuery,
+  useSearchTasksResultsQuery,
+} from "../../../state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import styles from "./TableView.module.scss";
 import { useAppSelector } from "../../../store/redux";
@@ -8,6 +12,8 @@ import { useAppSelector } from "../../../store/redux";
 type Props = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
+  priority?: string;
+  query?: string;
 };
 
 const columns: GridColDef[] = [
@@ -74,7 +80,12 @@ const columns: GridColDef[] = [
   },
 ];
 
-const TableView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
+const TableView: React.FC<Props> = ({
+  id,
+  setIsModalNewTaskOpen,
+  priority = "",
+  query = "",
+}) => {
   const {
     data: tasks,
     error,
@@ -82,14 +93,54 @@ const TableView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
   } = useGetTasksQuery({
     projectId: Number(id),
   });
+
+  const {
+    data: priorityTasks,
+    error: priorityTasksError,
+    isLoading: isPriorityTasksLoading,
+  } = useGetTasksByPriorityQuery(
+    {
+      projectId: Number(id),
+      priority,
+    },
+    {
+      skip: priority === "",
+    }
+  );
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
-  if (isLoading) return <div className={styles.loading}>Loading...</div>;
-  if (error || !tasks)
-    return (
-      <div className={styles.error}>An error occurred while fetching tasks</div>
-    );
+  const {
+    data: searchTasks,
+    error: searchTasksError,
+    isLoading: isSearchTasksLoading,
+  } = useSearchTasksResultsQuery(
+    {
+      projectId: Number(id),
+      query,
+    },
+    {
+      skip: query === "",
+    }
+  );
+  const displayTasks =
+    priority !== "" ? priorityTasks : query !== "" ? searchTasks : tasks;
 
+  if (priority === "" && isLoading) return <div>Loading...</div>;
+  if (priority !== "" && isPriorityTasksLoading) return <div>Loading...</div>;
+  if (query !== "" && isSearchTasksLoading) return <div>Loading...</div>;
+
+  if (priority === "" && query === "" && error) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (priority !== "" && priorityTasksError) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (query !== "" && searchTasksError) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (!displayTasks?.length) {
+    return <div className={styles.noTasksMessage}>No task found.</div>;
+  }
   return (
     <div className={styles.tableViewContainer}>
       <div className={styles.headerContainer}>
@@ -107,7 +158,7 @@ const TableView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
         />
       </div>
       <DataGrid
-        rows={tasks || []}
+        rows={displayTasks || []}
         columns={columns}
         className={`${styles.dataGrid} dataGridColor`}
         sx={{

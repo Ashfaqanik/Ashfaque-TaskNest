@@ -11,6 +11,8 @@ const Project: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
+  const [priority, setPriority] = useState("");
+  const [query, setQuery] = useState("");
 
   if (!id) {
     return <p>Project ID not found.</p>;
@@ -23,19 +25,44 @@ const Project: React.FC = () => {
         onClose={() => setIsModalNewTaskOpen(false)}
         id={id}
       />
-      <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+      <ProjectHeader
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        setPriority={setPriority}
+        setQuery={setQuery}
+      />
 
       {activeTab === "Board" && (
-        <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+        <Board
+          id={id}
+          setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+          priority={priority}
+          query={query}
+        />
       )}
       {activeTab === "List" && (
-        <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+        <ListView
+          id={id}
+          setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+          priority={priority}
+          query={query}
+        />
       )}
       {activeTab === "Timeline" && (
-        <TimeLineView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+        <TimeLineView
+          id={id}
+          setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+          priority={priority}
+          query={query}
+        />
       )}
       {activeTab === "Table" && (
-        <TableView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+        <TableView
+          id={id}
+          setIsModalNewTaskOpen={setIsModalNewTaskOpen}
+          priority={priority}
+          query={query}
+        />
       )}
     </div>
   );

@@ -2,34 +2,42 @@ import React, { useState } from "react";
 import Header from "../../../components/Header/Header";
 import { useAppSelector } from "../../../store/redux";
 import { useProject } from "../../../context/ProjectContext";
-
-import {
-  Clock,
-  Filter,
-  Grid3x3,
-  List,
-  PlusSquare,
-  Share2,
-  Table,
-} from "lucide-react";
+import { Clock, Filter, Grid3x3, List, PlusSquare, Table } from "lucide-react";
 import ModalNewProject from "../ModalNewProject/ModalNewProject";
 import styles from "./ProjectHeader.module.scss";
+import FilterButton from "../../../components/FilterButton/FilterButton";
 
 // Defined types for Props
 type Props = {
   activeTab: string;
   setActiveTab: (tabName: string) => void;
+  setPriority: (priorityName: string) => void;
+  setQuery: (query: string) => void;
 };
 
-const ProjectHeader: React.FC<Props> = ({ activeTab, setActiveTab }: Props) => {
+const ProjectHeader: React.FC<Props> = ({
+  activeTab,
+  setActiveTab,
+  setPriority,
+  setQuery,
+}: Props) => {
   const [isModalNewProjectOpen, setIsModalNewProjectOpen] =
     useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState<string>("");
 
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed
   );
 
   const { projectName, teamId } = useProject();
+
+  const handleFilterChange = (filter: string) => {
+    setSelectedFilter(filter);
+    setPriority(selectedFilter);
+  };
+  const handleSearchQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div
@@ -88,16 +96,18 @@ const ProjectHeader: React.FC<Props> = ({ activeTab, setActiveTab }: Props) => {
           />
         </div>
         <div className={styles.actionButtons}>
-          <button className={`${styles.iconButton} projectHeaderIconButton`}>
+          <FilterButton
+            className={"projectHeaderIconButton"}
+            onFilterChange={handleFilterChange}
+          >
             <Filter />
-          </button>
-          <button className={`${styles.iconButton} projectHeaderIconButton`}>
-            <Share2 />
-          </button>
+          </FilterButton>
+
           <div className={styles.search}>
             <input
               type="text"
               placeholder="Search Task"
+              onChange={handleSearchQuery}
               className={`${styles.searchInput} projectHeaderSearchInput`}
             />
             <Grid3x3 className={`${styles.searchIcon} searchIcon`} />

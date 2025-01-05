@@ -1,18 +1,29 @@
 import React, { useMemo, useState } from "react";
 import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
-import { useGetTasksQuery } from "../../../state/api";
+import {
+  useGetTasksByPriorityQuery,
+  useGetTasksQuery,
+  useSearchTasksResultsQuery,
+} from "../../../state/api";
 import styles from "./TimelineView.module.scss";
 import { useAppSelector } from "../../../store/redux";
 
 type Props = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
+  priority?: string;
+  query?: string;
 };
 
 type TaskTypeItems = "task" | "milestone" | "project";
 
-const TimelineView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
+const TimelineView: React.FC<Props> = ({
+  id,
+  setIsModalNewTaskOpen,
+  priority = "",
+  query = "",
+}) => {
   const {
     data: tasks,
     error,
@@ -21,6 +32,35 @@ const TimelineView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
     projectId: Number(id),
   });
 
+  const {
+    data: priorityTasks,
+    error: priorityTasksError,
+    isLoading: isPriorityTasksLoading,
+  } = useGetTasksByPriorityQuery(
+    {
+      projectId: Number(id),
+      priority,
+    },
+    {
+      skip: priority === "",
+    }
+  );
+  const {
+    data: searchTasks,
+    error: searchTasksError,
+    isLoading: isSearchTasksLoading,
+  } = useSearchTasksResultsQuery(
+    {
+      projectId: Number(id),
+      query,
+    },
+    {
+      skip: query === "",
+    }
+  );
+
+  const displayTasks =
+    priority !== "" ? priorityTasks : query !== "" ? searchTasks : tasks;
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
   const [displayOptions, setDisplayOptions] = useState<DisplayOption>({
@@ -29,8 +69,11 @@ const TimelineView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
   });
 
   const ganttTasks = useMemo(() => {
+    if (!displayTasks || displayTasks.length === 0) {
+      return [];
+    }
     return (
-      tasks?.map((task) => ({
+      displayTasks?.map((task) => ({
         start: new Date(task.startDate as string),
         end: new Date(task.dueDate as string),
         name: task.title,
@@ -40,7 +83,7 @@ const TimelineView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
         isDisabled: false,
       })) || []
     );
-  }, [tasks]);
+  }, [displayTasks]);
 
   const handleViewModeChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -50,13 +93,26 @@ const TimelineView: React.FC<Props> = ({ id, setIsModalNewTaskOpen }) => {
       viewMode: event.target.value as ViewMode,
     }));
   };
+  if (priority === "" && isLoading) return <div>Loading...</div>;
+  if (priority !== "" && isPriorityTasksLoading) return <div>Loading...</div>;
+  if (query !== "" && isSearchTasksLoading) return <div>Loading...</div>;
 
-  if (isLoading) return <div className={styles.loading}>Loading...</div>;
-  if (error || !tasks)
+  if (priority === "" && query === "" && error) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (priority !== "" && priorityTasksError) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (query !== "" && searchTasksError) {
+    return <div>An error occurred while fetching tasks</div>;
+  }
+  if (!ganttTasks.length) {
     return (
-      <div className={styles.error}>An error occurred while fetching tasks</div>
+      <div className={styles.noTasksMessage}>
+        No tasks available for the selected priority.
+      </div>
     );
-
+  }
   return (
     <div className={`${styles.timelineContainer} timeline`}>
       <div className={styles.header}>

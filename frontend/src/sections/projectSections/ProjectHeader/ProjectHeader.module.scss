@@ -98,13 +98,7 @@
   .actionButtons {
     display: flex;
     align-items: center;
-    gap: 1rem;
-
-    .iconButton {
-      border: none;
-      height: 2rem;
-      width: 1.5rem;
-    }
+    gap: 0.3rem;
   }
 
   // Search input

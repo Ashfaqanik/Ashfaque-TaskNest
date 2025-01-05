@@ -135,3 +135,45 @@ export const postComment = async (
       .json({ message: `Error posting comment: ${error.message}` });
   }
 };
+
+export const getTasksByPriority = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { projectId, priority } = req.query;
+  try {
+    const tasks = await prisma.task.findMany({
+      where: {
+        projectId: Number(projectId),
+        priority: { contains: priority as string, mode: "insensitive" },
+      },
+      include: {
+        author: true,
+        assignee: true,
+      },
+    });
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving tasks by priority" });
+  }
+};
+export const searchTasks = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { projectId, query } = req.query;
+  try {
+    const tasks = await prisma.task.findMany({
+      where: {
+        projectId: Number(projectId),
+        title: { contains: query as string, mode: "insensitive" },
+      },
+    });
+
+    res.json(tasks);
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: `Error performing search: ${error.message}` });
+  }
+};
