@@ -31,6 +31,7 @@ export default function Navbar() {
     });
     navigate("/login");
   };
+
   const { data: project, isLoading } = useSearchProjectQuery(searchQuery, {
     skip: !searchQuery,
   });
@@ -39,12 +40,10 @@ export default function Navbar() {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter") {
-      const query = (event.target as HTMLInputElement).value.trim();
-
-      if (query) {
-        setSearchQuery(query);
+      setSearchQuery(() => {
         setEnterPressed(true);
-      }
+        return (event.target as HTMLInputElement).value.trim();
+      });
     }
   };
 
@@ -59,13 +58,13 @@ export default function Navbar() {
           navigate(`/projects/${project[0].id}`);
         } else if (!isLoading) {
           toast.error("No Project found!", {
-            autoClose: 3000,
+            autoClose: 2000,
           });
           setEnterPressed(false);
         }
       }
     }
-  }, [handleEnterKeyPress, enterPressed, isLoading]);
+  }, [project]);
 
   return (
     <div className={`${styles.navbar} nav text`}>
