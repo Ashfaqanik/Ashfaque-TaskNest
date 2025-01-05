@@ -10,7 +10,7 @@ User Management: Login & Sign Up with authentication.
 
 Team management: Create & view team for task distribution.
 
-Interactive Data Grid: Use @mui/x-data-grid for efficient task display and management.
+Interactive Data Grid: For efficient task display and management.
 
 Gantt Chart: Visualize project timelines with Gantt charts.
 
