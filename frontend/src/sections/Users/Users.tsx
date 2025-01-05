@@ -26,7 +26,7 @@ const columns: GridColDef[] = [
       <div className={styles.profileCell}>
         <div className={styles.profilePicture}>
           <img
-            src={params.row.image}
+            src={params.row.image || "/default.png"}
             alt={params.row.username}
             width={100}
             height={50}
