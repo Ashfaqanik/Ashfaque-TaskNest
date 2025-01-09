@@ -108,9 +108,7 @@ const CommentModal = ({
                   {comment.userId !== userId && (
                     <img
                       src={
-                        comment.image === ""
-                          ? "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp"
-                          : comment.image
+                        comment.image === "" ? "/default.png" : comment.image
                       }
                       alt={comment.userName}
                       className={styles.userImage}
@@ -131,9 +129,7 @@ const CommentModal = ({
                   {comment.userId === userId && (
                     <img
                       src={
-                        comment.image === ""
-                          ? "https://res.cloudinary.com/dpabqdea9/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734750736/avatar_z6gypr.webp"
-                          : comment.image
+                        comment.image === "" ? "/default.png" : comment.image
                       }
                       alt={"user"}
                       className={styles.userImage}

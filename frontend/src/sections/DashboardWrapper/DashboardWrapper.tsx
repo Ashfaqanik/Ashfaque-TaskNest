@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Routes, Route } from "react-router-dom";
 import { useAppSelector } from "../../store/redux";
-import Project from "../ProjectSections/Project";
+import Project from "../projectSections/Project";
 import Home from "../Home/Home";
 import Timeline from "../Timeline/Timeline";
 import SearchPage from "../Search/SearchPage";

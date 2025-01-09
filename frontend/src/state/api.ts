@@ -126,9 +126,7 @@ export const api = createApi({
         method: "PATCH",
         body: { status },
       }),
-      invalidatesTags: (result, error, { taskId }) => [
-        { type: "Tasks", id: taskId },
-      ],
+      invalidatesTags: (_, __, { taskId }) => [{ type: "Tasks", id: taskId }],
     }),
     searchResults: build.query<SearchResults, string>({
       query: (query) => `search?query=${query}`,
@@ -183,7 +181,7 @@ export const api = createApi({
     }),
     getTasksByUser: build.query<Task[], number>({
       query: (userId) => `tasks/user/${userId}`,
-      providesTags: (result, error, userId) =>
+      providesTags: (result, _, userId) =>
         result
           ? result.map(({ id }) => ({ type: "Tasks", id }))
           : [{ type: "Tasks", id: userId }],

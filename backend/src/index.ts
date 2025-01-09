@@ -11,21 +11,34 @@ import searchRoutes from "./routes/searchRoutes";
 import usersRoutes from "./routes/usersRoutes";
 import userRoutes from "./routes/userRoutes";
 import teamRoutes from "./routes/teamRoutes";
+import path from "path";
 
 dotenv.config();
 const app = express();
+
 app.use(express.json());
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      frameSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  })
+);
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-/* ROUTES */
-app.get("/", (req, res) => {
-  res.send("This is home route");
-});
+const _dirname = path.resolve();
 
 app.use("/projects", projectRoutes);
 app.use("/tasks", taskRoutes);
@@ -33,6 +46,11 @@ app.use("/search", searchRoutes);
 app.use("/teams", teamRoutes);
 app.use("/users", usersRoutes);
 app.use("/user", userRoutes);
+
+app.use(express.static(path.join(_dirname, "/frontend/dist")));
+app.get("*", (_, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+});
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3000;

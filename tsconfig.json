@@ -107,5 +107,10 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*"]
+  "include": [
+    "backend/src/**/*",
+    "backend/src/data/**/*.json",
+    "backend/prisma/**/*"
+  ],
+  "exclude": ["dist"]
 }
