@@ -9,7 +9,6 @@ import Login from "./pages/Login/Login";
 import { setIsLoggedIn } from "./state/globalReducer.ts";
 import SignUp from "./pages/Register/Register";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 
 const metadata = {
   title: "Ashfaque TaskNest",
@@ -28,7 +27,6 @@ function App() {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.global.isLoggedIn);
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     const root = document.documentElement;

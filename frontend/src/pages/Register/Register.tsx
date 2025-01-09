@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCreateUserMutation } from "../../state/api";
 import styles from "./Register.module.scss";
 import { useAppSelector } from "../../store/redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -91,7 +91,7 @@ const SignUp: React.FC = () => {
           onChange={(e) => setRole(e.target.value)}
         />
         <p className={styles.switchPrompt}>
-          Already have an account? <a href="/login"> Sign In</a>
+          Already have an account? <Link to="/login"> Sign In</Link>
         </p>
         <button className="button" type="submit" disabled={isLoading}>
           {isLoading ? "Registering..." : "Sign Up"}

@@ -173,7 +173,7 @@ const Task = ({ task }: TaskProps) => {
     collect: (monitor: any) => ({ isDragging: !!monitor.isDragging() }),
   }));
 
-  const { data: user, isLoading, isError } = useGetProfileQuery();
+  const { data: user } = useGetProfileQuery();
 
   const taskTagsSplit = task.tags ? task.tags.split(",") : [];
 

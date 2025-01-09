@@ -8,9 +8,9 @@ type Props = {
 const UserCard = ({ user }: Props) => {
   return (
     <div className={styles.userContainer}>
-      {user.profilePictureUrl && (
+      {user.image && (
         <img
-          src={`/${user.profilePictureUrl}`}
+          src={`/${user.image}`}
           alt="profile picture"
           width={100}
           height={100}

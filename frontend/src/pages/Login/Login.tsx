@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../store/redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setIsLoggedIn } from "../../state/globalReducer";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
       console.log("User token:", response.token, response.id);
     } catch (err: any) {
       console.log(err.data?.message || "Invalid credentials.");
-      toast.error(err.data?.message || "Failed to register.", {
+      toast.error(err.data?.message || "Invalid username or password.", {
         autoClose: 3000,
       });
     }
@@ -65,7 +66,7 @@ const Login: React.FC = () => {
           required
         />
         <p className={styles.switchPrompt}>
-          Don't have an account? <a href="/signUp"> Sign up</a>
+          Don't have an account? <Link to="/signUp"> Sign up</Link>
         </p>
         <button className="button" type="submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Login"}
