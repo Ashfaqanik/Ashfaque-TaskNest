@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import styles from "./TimeLineView.module.scss";
 import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
 import {
@@ -6,7 +7,6 @@ import {
   useGetTasksQuery,
   useSearchTasksResultsQuery,
 } from "../../../state/api";
-import styles from "./TimelineView.module.scss";
 import { useAppSelector } from "../../../store/redux";
 
 type Props = {
