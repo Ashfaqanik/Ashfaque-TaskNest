@@ -26,8 +26,10 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
   const [assignedUserId, setAssignedUserId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [imageUrl, setImageUrl] = useState<string>("");
+  const [imgLoading, setImgLoading] = useState(false);
 
   const handleImageUpload = async (file: File) => {
+    setImgLoading(true);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "taskmanagy");
@@ -46,6 +48,8 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
       setImageUrl(data.secure_url);
     } catch (error) {
       toast.error("Image upload failed. Please try again.");
+    } finally {
+      setImgLoading(false);
     }
   };
 
@@ -206,6 +210,7 @@ const ModalNewTask: React.FC<Props> = ({ isOpen, onClose, id = null }) => {
               }
             }}
           />
+          {imgLoading && <p>Uploading Image...</p>}{" "}
           {imageUrl && <p>Image uploaded successfully!</p>}{" "}
           <button
             type="submit"
