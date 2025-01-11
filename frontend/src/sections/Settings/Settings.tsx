@@ -4,6 +4,8 @@ import styles from "./Settings.module.scss";
 import { useAppSelector } from "../../store/redux";
 import axios from "axios";
 import { Camera } from "lucide-react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useGetProfileQuery, useUpdateUserMutation } from "../../state/api";
 
 const Settings = () => {
@@ -58,7 +60,7 @@ const Settings = () => {
   const handleUpdate = async () => {
     let uploadedImageUrl = formData.profileImage;
 
-    // UploadING image to Cloudinary if a new file is selected
+    // Uploading image to Cloudinary
     if (imageFile) {
       const imageFormData = new FormData();
       imageFormData.append("file", imageFile);
@@ -73,6 +75,7 @@ const Settings = () => {
         uploadedImageUrl = data.secure_url;
       } catch (error) {
         console.error("Image upload failed:", error);
+        toast.error("Image upload failed. Please try again.");
         return;
       }
     }
@@ -88,10 +91,10 @@ const Settings = () => {
         },
       }).unwrap();
 
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (error) {
       console.error("Failed to update user:", error);
-      alert("Failed to update profile. Please try again.");
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
