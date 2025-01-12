@@ -1,37 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import styles from "./TaskCard.module.scss";
 import { Task } from "../../state/api";
 import { useAppSelector } from "../../store/redux";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 
 type Props = {
   task: Task;
-  onDelete: (id: number) => void;
+  onDelete?: (id: number) => void;
 };
 
 const TaskCard: React.FC<Props> = ({ task, onDelete }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
-  const handleDelete = () => {
-    if (
-      window.confirm(`Are you sure you want to delete task "${task.title}"?`)
-    ) {
-      onDelete(task.id);
-    }
+  const handleDialogOpen = () => setIsDialogOpen(true);
+  const handleDialogClose = () => setIsDialogOpen(false);
+
+  const handleDeleteConfirm = () => {
+    onDelete && onDelete(task.id);
+    setIsDialogOpen(false);
   };
 
   return (
     <div className={`${styles.taskCard} taskCard`}>
+      {/* Delete Confirmation Modal */}
+      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete the task "{task.title}"? This action
+            cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleDeleteConfirm} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       {/* Delete Button */}
-      <button
-        className={`${styles.deleteButton} ${
-          isDarkMode ? styles.buttonColorDark : styles.buttonColor
-        }`}
-        onClick={handleDelete}
-        aria-label="Delete task"
-      >
-        -
-      </button>
+      {onDelete ? (
+        <button
+          className={`${styles.deleteButton} ${
+            isDarkMode ? styles.buttonColorDark : styles.buttonColor
+          }`}
+          onClick={handleDialogOpen}
+          aria-label="Delete task"
+        >
+          -
+        </button>
+      ) : (
+        ""
+      )}
 
       {task.image !== null && (
         <div className={styles.attachments}>

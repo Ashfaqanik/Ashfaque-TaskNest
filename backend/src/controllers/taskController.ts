@@ -188,24 +188,20 @@ export const deleteTask = async (
     res.status(400).json({ message: "Task ID is required" });
     return;
   }
-
   try {
-    // Attempt to delete the task
-    const deletedTask = await prisma.task.delete({
-      where: { id: Number(id) },
-    });
-
-    res.status(200).json({
-      message: "Task deleted successfully",
-      deletedTask,
-    });
+    const result = await prisma.$transaction([
+      prisma.comment.deleteMany({ where: { taskId: Number(id) } }),
+      prisma.task.delete({ where: { id: Number(id) } }),
+    ]);
+    res
+      .status(200)
+      .json({ message: "Task and comments deleted successfully." });
   } catch (error: any) {
-    if (error.code === "P2025") {
-      res.status(404).json({ message: "Task not found" });
-    } else {
-      res
-        .status(500)
-        .json({ message: `Error deleting task: ${error.message}` });
-    }
+    res
+      .status(500)
+      .json({
+        message: "Failed to delete task and comments.",
+        error: error.message,
+      });
   }
 };

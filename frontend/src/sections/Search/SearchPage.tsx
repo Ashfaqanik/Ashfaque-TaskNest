@@ -2,14 +2,12 @@ import Header from "../../components/Header/Header";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import TaskCard from "../../components/TaskCard/TaskCard";
 import UserCard from "../../components/UserCard/UserCard";
-import { useSearchResultsQuery, useDeleteTaskMutation } from "../../state/api";
+import { useSearchResultsQuery } from "../../state/api";
 import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import styles from "./SearchPage.module.scss";
 import { useSidebar } from "../../context/SidebarContext";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,23 +27,6 @@ const SearchPage = () => {
     },
     500
   );
-  const [deleteTask] = useDeleteTaskMutation();
-
-  const handleDelete = async (taskId: number) => {
-    try {
-      await deleteTask({ taskId }).unwrap();
-      toast.success(`Task deleted successfully!`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    } catch (error) {
-      toast.error(`Failed to delete task. Please try again.`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    }
-  };
-
   useEffect(() => {
     return handleSearch.cancel;
   }, [handleSearch]);
@@ -80,11 +61,7 @@ const SearchPage = () => {
               </h2>
             )}
             {searchResults.tasks?.map((task) => (
-              <TaskCard
-                key={task.id}
-                task={task}
-                onDelete={() => handleDelete(task.id)}
-              />
+              <TaskCard key={task.id} task={task} />
             ))}
 
             {searchResults.projects && searchResults.projects?.length > 0 && (

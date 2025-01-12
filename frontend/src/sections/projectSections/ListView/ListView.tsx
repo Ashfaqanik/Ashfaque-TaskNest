@@ -57,6 +57,7 @@ export default function ListView({
     }
   );
   const [deleteTask] = useDeleteTaskMutation();
+
   const displayTasks =
     priority !== "" ? priorityTasks : query !== "" ? searchTasks : tasks;
 
@@ -68,6 +69,7 @@ export default function ListView({
         autoClose: 3000,
       });
     } catch (error) {
+      console.error("Error deleting task or comments:", error);
       toast.error(`Failed to delete task. Please try again.`, {
         position: "top-right",
         autoClose: 3000,
