@@ -9,8 +9,15 @@
   width: 100%;
   padding: 1rem;
   padding-bottom: 3rem;
-  margin-top: 11rem;
   margin-right: 5rem;
+  margin-right: 5rem;
+  margin-top: 12.5rem;
+  @media (max-width: 768px) {
+    margin-top: 15rem;
+  }
+  @media (min-width: 1280px) {
+    margin-top: 13rem;
+  }
 }
 
 // Header styles
