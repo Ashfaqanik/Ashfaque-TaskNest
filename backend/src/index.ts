@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Enable CORS (to allow frontend communication)
 app.use(
   cors({
-    origin: "http://localhost:5173", //"https://ashfaque-tasknest.onrender.com",
+    origin: "https://ashfaque-tasknest.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
