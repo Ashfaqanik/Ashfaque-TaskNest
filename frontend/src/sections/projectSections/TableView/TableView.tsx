@@ -21,13 +21,13 @@ const columns: GridColDef[] = [
     field: "title",
     headerName: "Title",
     headerClassName: "dataGridHeaderColor",
-    width: 100,
+    width: 200,
   },
   {
     field: "description",
     headerName: "Description",
     headerClassName: "dataGridHeaderColor",
-    width: 200,
+    width: 300,
   },
   {
     field: "status",
@@ -44,7 +44,7 @@ const columns: GridColDef[] = [
     field: "priority",
     headerName: "Priority",
     headerClassName: "dataGridHeaderColor",
-    width: 75,
+    width: 80,
   },
   {
     field: "tags",
