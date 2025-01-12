@@ -7,6 +7,7 @@ import {
   postComment,
   getTasksByPriority,
   searchTasks,
+  deleteTask,
 } from "../controllers/taskController";
 import { authenticateToken } from "./auth";
 
@@ -19,5 +20,6 @@ router.patch("/:taskId/status", authenticateToken, updateTaskStatus);
 router.get("/user/:userId", getUserTasks);
 router.post("/:taskId/comments", postComment);
 router.get("/search", searchTasks);
+router.delete("/", authenticateToken, deleteTask);
 
 export default router;

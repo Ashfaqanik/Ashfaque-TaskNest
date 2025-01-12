@@ -1,6 +1,7 @@
 @use "../../globalStyles/colors";
 
 .taskCard {
+  position: relative;
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -28,6 +29,7 @@
       margin-top: 0.3rem;
 
       .attachmentImage {
+        margin-top: 20px;
         max-width: 100%;
         height: auto;
         border-radius: 0.5rem;
@@ -38,5 +40,35 @@
         }
       }
     }
+  }
+  .deleteButton {
+    //margin-top: 2px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 22px;
+    height: 22px;
+    background-color: transparent;
+    border-radius: 50%;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+    &:hover {
+      background-color: red;
+      color: white;
+    }
+  }
+  .buttonColor {
+    border-color: black;
+    color: black;
+  }
+  .buttonColorDark {
+    border-color: white;
+    color: white;
   }
 }

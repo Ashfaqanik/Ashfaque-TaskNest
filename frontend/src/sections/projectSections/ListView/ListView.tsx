@@ -3,10 +3,13 @@ import {
   useGetTasksByPriorityQuery,
   useGetTasksQuery,
   useSearchTasksResultsQuery,
+  useDeleteTaskMutation,
 } from "../../../state/api";
 import Header from "../../../components/Header/Header";
 import styles from "./ListView.module.scss";
 import TaskCard from "../../../components/TaskCard/TaskCard";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {
   id: string;
@@ -53,8 +56,24 @@ export default function ListView({
       skip: query === "",
     }
   );
+  const [deleteTask] = useDeleteTaskMutation();
   const displayTasks =
     priority !== "" ? priorityTasks : query !== "" ? searchTasks : tasks;
+
+  const handleDelete = async (taskId: number) => {
+    try {
+      await deleteTask({ taskId }).unwrap();
+      toast.success(`Task deleted successfully!`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error(`Failed to delete task. Please try again.`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
 
   if (priority === "" && isTasksLoading) return <div>Loading...</div>;
   if (priority !== "" && isPriorityTasksLoading) return <div>Loading...</div>;
@@ -90,7 +109,11 @@ export default function ListView({
       </div>
       <div className={styles.tasksGrid}>
         {displayTasks?.map((task: Task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard
+            key={task.id}
+            task={task}
+            onDelete={() => handleDelete(task.id)}
+          />
         ))}
       </div>
     </div>

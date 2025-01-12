@@ -128,6 +128,13 @@ export const api = createApi({
       }),
       invalidatesTags: (_, __, { taskId }) => [{ type: "Tasks", id: taskId }],
     }),
+    deleteTask: build.mutation<void, { taskId: number }>({
+      query: ({ taskId }) => ({
+        url: `tasks?id=${taskId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, __, { taskId }) => [{ type: "Tasks", id: taskId }],
+    }),
     searchResults: build.query<SearchResults, string>({
       query: (query) => `search?query=${query}`,
     }),
@@ -264,4 +271,5 @@ export const {
   useGetTasksByPriorityQuery,
   useSearchTasksResultsQuery,
   useSearchProjectQuery,
+  useDeleteTaskMutation,
 } = api;

@@ -177,3 +177,35 @@ export const searchTasks = async (
       .json({ message: `Error performing search: ${error.message}` });
   }
 };
+
+export const deleteTask = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { id } = req.query;
+
+  if (!id) {
+    res.status(400).json({ message: "Task ID is required" });
+    return;
+  }
+
+  try {
+    // Attempt to delete the task
+    const deletedTask = await prisma.task.delete({
+      where: { id: Number(id) },
+    });
+
+    res.status(200).json({
+      message: "Task deleted successfully",
+      deletedTask,
+    });
+  } catch (error: any) {
+    if (error.code === "P2025") {
+      res.status(404).json({ message: "Task not found" });
+    } else {
+      res
+        .status(500)
+        .json({ message: `Error deleting task: ${error.message}` });
+    }
+  }
+};

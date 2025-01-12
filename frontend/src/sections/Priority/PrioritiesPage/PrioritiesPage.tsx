@@ -4,11 +4,14 @@ import { useAppSelector } from "../../../store/redux";
 import Header from "../../../components/Header/Header";
 import ModalNewTask from "../../../components/ModalNewTask/ModalNewTask";
 import TaskCard from "../../../components/TaskCard/TaskCard";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Priority,
   Task,
   useGetProfileQuery,
   useGetTasksByUserQuery,
+  useDeleteTaskMutation,
 } from "../../../state/api";
 import styles from "./PrioritiesPage.module.scss";
 
@@ -94,12 +97,28 @@ const PrioritiesPage = ({ priority, headerName }: Props) => {
   } = useGetTasksByUserQuery(userId || 0, {
     skip: userId === null,
   });
+  const [deleteTask] = useDeleteTaskMutation();
 
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
   const filteredTasks = tasks?.filter(
     (task: Task) => task.priority === priority
   );
+
+  const handleDelete = async (taskId: number) => {
+    try {
+      await deleteTask({ taskId }).unwrap();
+      toast.success(`Task deleted successfully!`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error(`Failed to delete task. Please try again.`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
 
   if (isTasksError || !tasks) return <div>Error fetching tasks</div>;
 
@@ -139,7 +158,11 @@ const PrioritiesPage = ({ priority, headerName }: Props) => {
       ) : view === "list" ? (
         <div className={styles.grid}>
           {filteredTasks?.map((task: Task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard
+              key={task.id}
+              task={task}
+              onDelete={() => handleDelete(task.id)}
+            />
           ))}
         </div>
       ) : (
