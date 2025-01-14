@@ -53,11 +53,14 @@
   }
 
   .timelineSection {
-    overflow: hidden;
+    overflow: auto;
     border-radius: 0.375rem;
     background-color: colors.$blue-100;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    touch-action: pan-x;
 
     // Dark mode styles
     &.dark {

@@ -67,6 +67,9 @@
   .ganttContainer {
     background-color: #e7edf6;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    touch-action: pan-x;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -76,6 +79,10 @@
     background-color: #3b465f;
     padding: 20px;
     border-radius: 8px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    touch-action: pan-x;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
