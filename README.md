@@ -4,7 +4,7 @@ Ashfaque TaskNest is a task management web application designed to simplify proj
 
 **Features**
 
-Task Management: Create project, add tasks and update task status with ease.
+Task Management: Create project, add tasks, delete task and update task status with ease.
 
 User Management: Login & Sign Up with authentication.
 
