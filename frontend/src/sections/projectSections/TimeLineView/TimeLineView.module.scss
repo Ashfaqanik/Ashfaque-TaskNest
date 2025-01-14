@@ -7,7 +7,7 @@
   padding: 20px;
   margin-top: 12.5rem;
   @media (max-width: 768px) {
-    margin-top: 14rem;
+    margin-top: 15.5rem;
   }
   @media (min-width: 1280px) {
     margin-top: 13rem;
@@ -28,6 +28,7 @@
       gap: 12px;
       .addButton {
         margin-top: 6px;
+        margin-left: 3px;
         width: 27px;
         height: 27px;
         border-radius: 50%;
@@ -65,10 +66,12 @@
 
   .ganttContainer {
     background-color: #e7edf6;
+    overflow: auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+
   .ganttContainerDark {
     background-color: #3b465f;
     padding: 20px;

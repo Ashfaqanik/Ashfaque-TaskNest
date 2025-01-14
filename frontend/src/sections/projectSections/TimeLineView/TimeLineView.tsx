@@ -62,6 +62,7 @@ const TimelineView: React.FC<Props> = ({
   const displayTasks =
     priority !== "" ? priorityTasks : query !== "" ? searchTasks : tasks;
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const isMobile = window.innerWidth < 768;
 
   const [displayOptions, setDisplayOptions] = useState<DisplayOption>({
     viewMode: ViewMode.Month,
@@ -148,8 +149,14 @@ const TimelineView: React.FC<Props> = ({
         <Gantt
           tasks={ganttTasks}
           {...displayOptions}
-          columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
-          listCellWidth="100px"
+          columnWidth={
+            isMobile
+              ? 70
+              : displayOptions.viewMode === ViewMode.Month
+              ? 150
+              : 100
+          }
+          listCellWidth={isMobile ? "50px" : "100px"}
           barBackgroundColor={isDarkMode ? "#4666b1" : "#77a6d4"}
           barBackgroundSelectedColor={isDarkMode ? "#3e64e4" : "#1f7ede"}
         />

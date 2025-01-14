@@ -13,6 +13,7 @@ const Timeline = () => {
     locale: "en-US",
   });
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
+  const isMobile = window.innerWidth < 768;
 
   const ganttTasks = useMemo(() => {
     return (
@@ -67,8 +68,14 @@ const Timeline = () => {
         <Gantt
           tasks={ganttTasks}
           {...displayOptions}
-          columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
-          listCellWidth="100px"
+          columnWidth={
+            isMobile
+              ? 70
+              : displayOptions.viewMode === ViewMode.Month
+              ? 150
+              : 100
+          }
+          listCellWidth={isMobile ? "60px" : "100px"}
           projectBackgroundColor={isDarkMode ? "#4666b1" : "#77a6d4"}
           projectProgressColor={isDarkMode ? "#96bff2" : "#4f5c69"}
           projectBackgroundSelectedColor={isDarkMode ? "#25619c" : "#5ba8e8"}
