@@ -24,7 +24,7 @@ const Modal: React.FC<Props> = ({ children, isOpen, onClose, name }) => {
               className={`${styles.closeButton} closeButtonColor`}
               onClick={onClose}
             >
-              <X size={18} />
+              <X />
             </button>
           }
           isSmallText
