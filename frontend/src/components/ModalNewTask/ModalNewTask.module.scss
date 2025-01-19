@@ -18,11 +18,13 @@
     }
 
     .selectInput {
-      margin-bottom: 1rem;
       display: block;
       width: 100%;
       border-radius: 4px;
-      padding: 0.5rem;
+      padding: 0.8rem;
+      @media (max-width: 639px) {
+        padding: 0.7rem;
+      }
     }
 
     .formButton {
@@ -44,12 +46,10 @@
 
     .gridContainer {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
-
-      @media (min-width: 640px) {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+      @media (max-width: 639px) {
+        grid-template-columns: repeat(1, 1fr);
       }
     }
   }
